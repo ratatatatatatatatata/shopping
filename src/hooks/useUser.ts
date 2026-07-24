@@ -13,19 +13,21 @@ export function useUser() {
   useEffect(() => {
     const supabase = createClient();
 
+    async function fetchProfile(userId: string) {
+      const { data } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", userId)
+        .single();
+      setProfile(data);
+    }
+
     async function load() {
       const {
         data: { user },
       } = await supabase.auth.getUser();
       setUser(user);
-      if (user) {
-        const { data } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", user.id)
-          .single();
-        setProfile(data);
-      }
+      if (user) await fetchProfile(user.id);
       setLoading(false);
     }
     load();
@@ -34,7 +36,13 @@ export function useUser() {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
-      if (!session?.user) setProfile(null);
+      if (session?.user) {
+        // Login / token refresh: re-fetch the profile so the navbar
+        // shows the real name immediately (no hard refresh needed)
+        fetchProfile(session.user.id);
+      } else {
+        setProfile(null);
+      }
     });
     return () => subscription.unsubscribe();
   }, []);
