@@ -1,22 +1,53 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { LucideIcon } from "lucide-react";
+import {
+  Banknote,
+  ShoppingCart,
+  Clock,
+  CheckCircle2,
+  XCircle,
+  Users,
+  Package,
+  AlertTriangle,
+  PackageX,
+  TrendingUp,
+  Layers,
+} from "lucide-react";
 import { cn } from "@/utils/format";
+
+// Icon is passed as a string key: functions can't cross the
+// Server -> Client Component boundary in Next.js.
+const ICONS = {
+  banknote: Banknote,
+  cart: ShoppingCart,
+  clock: Clock,
+  check: CheckCircle2,
+  x: XCircle,
+  users: Users,
+  package: Package,
+  alert: AlertTriangle,
+  packageX: PackageX,
+  trending: TrendingUp,
+  layers: Layers,
+} as const;
+
+export type StatsIcon = keyof typeof ICONS;
 
 export function StatsCard({
   title,
   value,
-  icon: Icon,
+  icon,
   accent = "neon",
   index = 0,
 }: {
   title: string;
   value: string;
-  icon: LucideIcon;
+  icon: StatsIcon;
   accent?: "neon" | "electric" | "grape" | "red";
   index?: number;
 }) {
+  const Icon = ICONS[icon] ?? Package;
   const accents = {
     neon: "bg-neon/15 text-lime-700",
     electric: "bg-electric/10 text-electric",

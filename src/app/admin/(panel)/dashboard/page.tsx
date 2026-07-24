@@ -1,14 +1,5 @@
 import Link from "next/link";
-import {
-  ShoppingCart,
-  Banknote,
-  Clock,
-  CheckCircle2,
-  Users,
-  Package,
-  AlertTriangle,
-  PackageX,
-} from "lucide-react";
+import { CheckCircle2, AlertTriangle } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import type { Order, Product } from "@/types";
 import { StatsCard } from "@/components/admin/StatsCard";
@@ -106,56 +97,56 @@ export default async function AdminDashboardPage() {
           index={0}
           title="Энэ сарын орлого"
           value={formatPrice(monthRevenue)}
-          icon={Banknote}
+          icon="banknote"
           accent="neon"
         />
         <StatsCard
           index={1}
           title="Энэ сарын захиалга"
           value={String(orders.length)}
-          icon={ShoppingCart}
+          icon="cart"
           accent="electric"
         />
         <StatsCard
           index={2}
           title="Хүлээгдэж буй захиалга"
           value={String(pendingRes.count ?? 0)}
-          icon={Clock}
+          icon="clock"
           accent="grape"
         />
         <StatsCard
           index={3}
           title="Хүргэгдсэн захиалга"
           value={String(deliveredRes.count ?? 0)}
-          icon={CheckCircle2}
+          icon="check"
           accent="neon"
         />
         <StatsCard
           index={4}
           title="Нийт хэрэглэгч"
           value={String(customersRes.count ?? 0)}
-          icon={Users}
+          icon="users"
           accent="electric"
         />
         <StatsCard
           index={5}
           title="Нийт бараа"
           value={String(productsRes.count ?? 0)}
-          icon={Package}
+          icon="package"
           accent="grape"
         />
         <StatsCard
           index={6}
           title="Бага үлдэгдэлтэй хувилбар"
           value={String(lowStock.length)}
-          icon={AlertTriangle}
+          icon="alert"
           accent="red"
         />
         <StatsCard
           index={7}
           title="Дууссан үлдэгдэлтэй"
           value={String(outOfStockRes.count ?? 0)}
-          icon={PackageX}
+          icon="packageX"
           accent="red"
         />
       </div>

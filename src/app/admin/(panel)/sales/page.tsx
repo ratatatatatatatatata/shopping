@@ -1,4 +1,3 @@
-import { Banknote, ShoppingCart, TrendingUp, Layers } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import type { Order, OrderItem } from "@/types";
 import { StatsCard } from "@/components/admin/StatsCard";
@@ -123,28 +122,28 @@ export default async function AdminSalesPage({
           index={0}
           title="Нийт орлого"
           value={formatPrice(totalRevenue)}
-          icon={Banknote}
+          icon="banknote"
           accent="neon"
         />
         <StatsCard
           index={1}
           title="Төлөгдсөн захиалга"
           value={String(orders.length)}
-          icon={ShoppingCart}
+          icon="cart"
           accent="electric"
         />
         <StatsCard
           index={2}
           title="Дундаж захиалга"
           value={formatPrice(Math.round(avgOrder))}
-          icon={TrendingUp}
+          icon="trending"
           accent="grape"
         />
         <StatsCard
           index={3}
           title="Зарагдсан бараа"
           value={String(itemsSold)}
-          icon={Layers}
+          icon="layers"
           accent="electric"
         />
       </div>
