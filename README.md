@@ -1,4 +1,4 @@
-# ХЭТ (KHET) — Fashion E-commerce Platform (v2)
+# Orasuits — Fashion E-commerce Platform (v2)
 
 Монголын залуу үеийнхэнд зориулсан хувцас, гутал, цүнх, аксессуарын
 production-ready онлайн дэлгүүр. Next.js 15 + Supabase + Vercel.
@@ -86,9 +86,9 @@ Email → "Confirm email"-г унтраа.
 ## 5. GitHub + Vercel deploy
 
 ```bash
-git init && git add . && git commit -m "KHET v2"
+git init && git add . && git commit -m "Orasuits v2"
 git branch -M main
-git remote add origin https://github.com/<you>/khet-store.git
+git remote add origin https://github.com/<you>/orasuits-store.git
 git push -u origin main
 ```
 

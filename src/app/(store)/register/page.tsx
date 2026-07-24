@@ -89,7 +89,7 @@ export default function RegisterPage() {
       >
         <h1 className="font-display text-2xl font-bold">Бүртгүүлэх</h1>
         <p className="mt-2 text-sm text-neutral-500">
-          ХЭТ-д тавтай морил — шинэ бүртгэл үүсгэнэ үү.
+          Orasuits-д тавтай морил — шинэ бүртгэл үүсгэнэ үү.
         </p>
         <form onSubmit={handleSubmit} className="mt-7 space-y-4">
           <div>

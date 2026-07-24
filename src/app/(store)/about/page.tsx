@@ -7,12 +7,12 @@ export default function AboutPage() {
     <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6">
       <AnimatedSection>
         <h1 className="font-display text-3xl font-bold sm:text-4xl">
-          Бид бол <span className="text-gradient">ХЭТ</span>
+          Бид бол <span className="text-gradient">Orasuits</span>
         </h1>
         <p className="mt-6 leading-relaxed text-neutral-600">
-          ХЭТ нь Монголын залуу үеийнхэнд зориулсан streetwear болон premium
-          casual хувцасны онлайн дэлгүүр. Бид &ldquo;хэт&rdquo; гэдэг үгийг
-          хязгаараас давах, өөрийнхөөрөө байх гэсэн утгаар сонгосон.
+          Orasuits нь Монголын залуу үеийнхэнд зориулсан streetwear болон premium
+          casual хувцасны онлайн дэлгүүр. Хязгаараас давж, өөрийнхөөрөө байх —
+          энэ бол бидний үнэт зүйл.
         </p>
         <p className="mt-4 leading-relaxed text-neutral-600">
           Бидний зорилго — чанартай материал, орчин үеийн загвар, боломжийн

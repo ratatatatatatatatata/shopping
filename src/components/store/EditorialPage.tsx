@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
  * Body text is split into paragraphs on blank lines.
  */
 export function EditorialPage({
-  kicker = "ХЭТ",
+  kicker = "Orasuits",
   title,
   subtitle,
   body,

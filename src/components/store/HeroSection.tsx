@@ -122,7 +122,7 @@ export function HeroSection({
               <span>Premium Casual</span><span className="text-electric">●</span>
               <span>Шинэ загвар</span><span className="text-grape">●</span>
               <span>Хүргэлттэй</span><span className="text-neon">●</span>
-              <span>ХЭТ Дэлгүүр</span><span className="text-electric">●</span>
+              <span>Orasuits Дэлгүүр</span><span className="text-electric">●</span>
               <span>Streetwear</span><span className="text-grape">●</span>
               <span>Premium Casual</span><span className="text-neon">●</span>
               <span>Шинэ загвар</span><span className="text-electric">●</span>

@@ -7,7 +7,7 @@ import type {
   Gender,
 } from "@/types";
 
-export const SITE_NAME = "KHET";
+export const SITE_NAME = "Orasuits";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 export const DELIVERY_FEE = 6000;
@@ -79,5 +79,5 @@ export const DISTRICTS = [
 export const BANK_INFO = {
   bankName: "Хаан Банк",
   accountNumber: "5000-XXXX-XXXX",
-  accountHolder: '"ХЭТ ФЭШН" ХХК',
+  accountHolder: '"ОРАСУИТС" ХХК',
 };

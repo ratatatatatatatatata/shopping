@@ -36,7 +36,7 @@ const ProductViewer3D = dynamic(
   { ssr: false }
 );
 
-const RECENTLY_VIEWED_KEY = "khet-recently-viewed";
+const RECENTLY_VIEWED_KEY = "orasuits-recently-viewed";
 
 function Accordion({
   title,

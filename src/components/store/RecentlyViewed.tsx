@@ -6,7 +6,7 @@ import type { Product } from "@/types";
 import { ProductCard } from "./ProductCard";
 import { AnimatedSection, StaggerGrid } from "./AnimatedSection";
 
-const RECENTLY_VIEWED_KEY = "khet-recently-viewed";
+const RECENTLY_VIEWED_KEY = "orasuits-recently-viewed";
 
 export function RecentlyViewed({ excludeId }: { excludeId?: string }) {
   const [products, setProducts] = useState<Product[]>([]);

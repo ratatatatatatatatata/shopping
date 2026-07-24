@@ -8,7 +8,7 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-4">
           <div>
             <span className="font-display text-2xl font-bold">
-              ХЭТ<span className="text-neon">.</span>
+              Orasuits<span className="text-neon">.</span>
             </span>
             <p className="mt-3 max-w-xs text-sm text-white/60">
               Шинэ үеийн streetwear болон premium casual хувцасны онлайн дэлгүүр.
@@ -55,14 +55,14 @@ export function Footer() {
                 <Phone className="h-4 w-4 text-neon" /> +976 9999-9999
               </li>
               <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-neon" /> hello@khet.mn
+                <Mail className="h-4 w-4 text-neon" /> hello@orasuits.mn
               </li>
               <li>Улаанбаатар, Монгол</li>
             </ul>
           </div>
         </div>
         <div className="mt-12 border-t border-white/10 pt-6 text-center text-xs text-white/40">
-          © {new Date().getFullYear()} ХЭТ. Бүх эрх хуулиар хамгаалагдсан.
+          © {new Date().getFullYear()} Orasuits. Бүх эрх хуулиар хамгаалагдсан.
         </div>
       </div>
     </footer>

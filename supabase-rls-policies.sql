@@ -1,5 +1,5 @@
 -- ============================================================
--- KHET Store v2 — Row Level Security Policies
+-- Orasuits Store v2 — Row Level Security Policies
 -- Run AFTER supabase-schema.sql.
 -- ============================================================
 

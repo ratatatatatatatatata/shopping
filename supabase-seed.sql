@@ -1,11 +1,11 @@
 -- ============================================================
--- KHET Store v2 — Sample Data. Run AFTER schema + RLS.
+-- Orasuits Store v2 — Sample Data. Run AFTER schema + RLS.
 -- ============================================================
 
 -- Brands
 insert into public.brands (id, name, slug) values
-  ('d1000000-0000-0000-0000-000000000001', 'KHET Originals', 'khet-originals'),
-  ('d1000000-0000-0000-0000-000000000002', 'KHET Studio', 'khet-studio');
+  ('d1000000-0000-0000-0000-000000000001', 'Orasuits Originals', 'orasuits-originals'),
+  ('d1000000-0000-0000-0000-000000000002', 'Orasuits Studio', 'orasuits-studio');
 
 -- Categories
 insert into public.categories (id, name, slug, image_url, sort_order) values
@@ -20,42 +20,42 @@ insert into public.categories (id, name, slug, image_url, sort_order) values
 insert into public.products
   (id, category_id, brand_id, name, slug, sku, gender, short_description, description, material, care_instructions, base_price, sale_price, main_image_url, status, is_featured, is_new_arrival, is_best_seller, published_at, seo_title, seo_description, tags) values
   ('a1000000-0000-0000-0000-000000000001', 'c1000000-0000-0000-0000-000000000001', 'd1000000-0000-0000-0000-000000000001',
-   'Oversized Hoodie', 'oversized-hoodie', 'KH-HD-001', 'unisex',
+   'Oversized Hoodie', 'oversized-hoodie', 'ORA-HD-001', 'unisex',
    'Зузаан, зөөлөн oversized hoodie.', 'Зузаан, зөөлөн даавуутай oversized загварын hoodie. Өдөр тутмын streetwear стильд төгс зохицоно.',
    '80% хөвөн, 20% полиэстер', '30°C-т угааж, сүүдэрт хатаана', 129000, null, '/images/products/hoodie-black.svg',
-   'published', true, true, true, now(), 'Oversized Hoodie — KHET', 'Streetwear oversized hoodie, хар болон неон өнгөтэй.', '{hoodie,streetwear}'),
+   'published', true, true, true, now(), 'Oversized Hoodie — Orasuits', 'Streetwear oversized hoodie, хар болон неон өнгөтэй.', '{hoodie,streetwear}'),
   ('a1000000-0000-0000-0000-000000000002', 'c1000000-0000-0000-0000-000000000001', 'd1000000-0000-0000-0000-000000000001',
-   'Streetwear T-shirt', 'streetwear-tshirt', 'KH-TS-002', 'unisex',
+   'Streetwear T-shirt', 'streetwear-tshirt', 'ORA-TS-002', 'unisex',
    '100% хөвөн streetwear футболк.', '100% хөвөн даавуутай, чөлөөтэй загварын streetwear футболк.',
    '100% хөвөн', '30°C-т угаана', 59000, null, '/images/products/tshirt-white.svg',
    'published', true, true, false, now(), null, null, '{tshirt}'),
   ('a1000000-0000-0000-0000-000000000003', 'c1000000-0000-0000-0000-000000000002', 'd1000000-0000-0000-0000-000000000002',
-   'Cargo Pants', 'cargo-pants', 'KH-CG-003', 'men',
+   'Cargo Pants', 'cargo-pants', 'ORA-CG-003', 'men',
    'Олон халаастай cargo өмд.', 'Олон халаастай, бат бөх cargo өмд. Урбан стильд тохиромжтой.',
    '100% хөвөн канвас', '40°C-т угаана', 119000, null, '/images/products/cargo-khaki.svg',
    'published', true, false, true, now(), null, null, '{cargo,pants}'),
   ('a1000000-0000-0000-0000-000000000004', 'c1000000-0000-0000-0000-000000000003', 'd1000000-0000-0000-0000-000000000002',
-   'Varsity Jacket', 'varsity-jacket', 'KH-VJ-004', 'unisex',
+   'Varsity Jacket', 'varsity-jacket', 'ORA-VJ-004', 'unisex',
    'Сонгодог varsity куртик.', 'Сонгодог varsity загварын куртик — premium чанартай материал.',
    'Ноосон холимог, савхин ханцуй', 'Хими цэвэрлэгээ', 189000, null, '/images/products/varsity-blue.svg',
    'published', true, true, false, now(), null, null, '{jacket}'),
   ('a1000000-0000-0000-0000-000000000005', 'c1000000-0000-0000-0000-000000000004', 'd1000000-0000-0000-0000-000000000001',
-   'Basic Cap', 'basic-cap', 'KH-CP-005', 'unisex',
+   'Basic Cap', 'basic-cap', 'ORA-CP-005', 'unisex',
    'Энгийн boловч хүчтэй малгай.', 'Энгийн боловч хүчтэй basic малгай. Ямар ч outfit-д зохицоно.',
    '100% хөвөн', 'Гараар угаана', 39000, 29000, '/images/products/cap-black.svg',
    'published', false, false, false, now(), null, null, '{cap,sale}'),
   ('a1000000-0000-0000-0000-000000000006', 'c1000000-0000-0000-0000-000000000005', 'd1000000-0000-0000-0000-000000000002',
-   'Sneakers', 'sneakers', 'KH-SN-006', 'unisex',
+   'Sneakers', 'sneakers', 'ORA-SN-006', 'unisex',
    'Хөнгөн, тав тухтай пүүз.', 'Хөнгөн, тав тухтай өдөр тутмын пүүз.',
    'Даавуу + резин ул', 'Чийгтэй алчуураар арчина', 159000, null, '/images/products/sneakers-white.svg',
    'published', true, true, true, now(), null, null, '{shoes}'),
   ('a1000000-0000-0000-0000-000000000007', 'c1000000-0000-0000-0000-000000000001', 'd1000000-0000-0000-0000-000000000001',
-   'Premium Sweatshirt', 'premium-sweatshirt', 'KH-SW-007', 'women',
+   'Premium Sweatshirt', 'premium-sweatshirt', 'ORA-SW-007', 'women',
    'Premium зөөлөн sweatshirt.', 'Premium чанарын зөөлөн sweatshirt — минимал дизайн.',
    '70% хөвөн, 30% полиэстер', '30°C-т угаана', 99000, 89000, '/images/products/sweatshirt-gray.svg',
    'published', false, false, false, now(), null, null, '{sweatshirt,sale}'),
   ('a1000000-0000-0000-0000-000000000008', 'c1000000-0000-0000-0000-000000000003', 'd1000000-0000-0000-0000-000000000002',
-   'Denim Jacket', 'denim-jacket', 'KH-DJ-008', 'unisex',
+   'Denim Jacket', 'denim-jacket', 'ORA-DJ-008', 'unisex',
    'Классик denim куртик.', 'Классик denim куртик — цаг хугацааг үл хайхрах загвар.',
    '100% деним', '30°C-т урвуулж угаана', 149000, 129000, '/images/products/denim-blue.svg',
    'published', false, false, false, now(), null, null, '{denim,sale}');
@@ -145,20 +145,20 @@ select id, 'initial_stock', stock_quantity, 'Seed data' from public.product_vari
 insert into public.coupons (code, discount_type, discount_value, min_order_amount, usage_limit, is_active) values
   ('WELCOME10', 'percentage', 10, 50000, 100, true),
   ('FREESHIP', 'free_shipping', 0, 100000, null, true),
-  ('KHET20K', 'fixed', 20000, 150000, 50, true);
+  ('ORA20K', 'fixed', 20000, 150000, 50, true);
 
 -- Homepage sections
 insert into public.homepage_sections (key, title, subtitle, link_url, sort_order, is_visible, content) values
   ('hero', 'Шинэ үеийн стиль эндээс эхэлнэ', 'Залуусын өдөр тутмын, streetwear болон premium casual хувцаснууд', '/shop', 1, true, '{"cta_primary":"Дэлгүүр үзэх","cta_secondary":"Шинэ загварууд"}'),
   ('promo', 'Сонгосон загварууд -30% хүртэл', 'Улирлын хямдрал — тоо хязгаартай', '/sale', 2, true, '{"badge":"Хязгаарлагдмал хугацаатай"}'),
-  ('brand_story', 'Бид бол ХЭТ', 'Хязгаараас давж, өөрийнхөөрөө бай', '/about', 3, true, '{}');
+  ('brand_story', 'Бид бол Orasuits', 'Хязгаараас давж, өөрийнхөөрөө бай', '/about', 3, true, '{}');
 
 -- Site settings
 insert into public.site_settings (key, value) values
-  ('contact', '{"phone":"+976 9999-9999","email":"hello@khet.mn","address":"Улаанбаатар, Сүхбаатар дүүрэг","hours":"Өдөр бүр 10:00–22:00"}'),
-  ('social', '{"instagram":"https://instagram.com/khet.mn","facebook":"https://facebook.com/khet.mn"}'),
+  ('contact', '{"phone":"+976 9999-9999","email":"hello@orasuits.mn","address":"Улаанбаатар, Сүхбаатар дүүрэг","hours":"Өдөр бүр 10:00–22:00"}'),
+  ('social', '{"instagram":"https://instagram.com/orasuits.mn","facebook":"https://facebook.com/orasuits.mn"}'),
   ('delivery', '{"standard_fee":6000,"express_fee":12000,"free_over":200000,"info":"Улаанбаатар хотод 24–48 цагт хүргэнэ."}'),
-  ('bank', '{"bank_name":"Хаан Банк","account_number":"5000-XXXX-XXXX","account_holder":"ХЭТ ФЭШН ХХК"}'),
+  ('bank', '{"bank_name":"Хаан Банк","account_number":"5000-XXXX-XXXX","account_holder":"ОРАСУИТС ХХК"}'),
   ('policies', '{"returns":"7 хоногийн дотор размер солих боломжтой. Бараа шошготой, өмсөөгүй байх шаардлагатай.","shipping":"УБ хотод 24–48 цаг, орон нутагт 3–7 хоног.","privacy":"Бид таны хувийн мэдээллийг зөвхөн захиалга биелүүлэхэд ашиглана.","terms":"Захиалга баталгаажсаны дараа үнэ өөрчлөгдөхгүй."}');
 
 -- ============================================================

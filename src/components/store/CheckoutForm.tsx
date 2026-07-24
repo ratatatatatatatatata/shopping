@@ -363,7 +363,7 @@ export function CheckoutForm({
                 <Tag className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
                 <input
                   className="input !pl-10 uppercase"
-                  placeholder="KHET10"
+                  placeholder="ORA10"
                   {...register("couponCode", {
                     onChange: () =>
                       setCoupon({

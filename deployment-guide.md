@@ -11,7 +11,7 @@
 
 ## Алхам 1 — Supabase төсөл үүсгэх
 
-1. https://supabase.com → **New project** (нэр: `khet-store`, Region: Singapore ойр).
+1. https://supabase.com → **New project** (нэр: `orasuits-store`, Region: Singapore ойр).
 2. Project үүссэний дараа **Settings → API**:
    - `Project URL`
    - `anon public` key
@@ -65,9 +65,9 @@ update public.profiles set role = 'admin' where email = 'admin@tanii-mail.mn';
 ```bash
 git init
 git add .
-git commit -m "Initial commit: KHET store"
+git commit -m "Initial commit: Orasuits store"
 git branch -M main
-git remote add origin https://github.com/<username>/khet-store.git
+git remote add origin https://github.com/<username>/orasuits-store.git
 git push -u origin main
 ```
 

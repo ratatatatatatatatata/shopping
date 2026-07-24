@@ -64,7 +64,7 @@ function AdminLoginForm() {
           <h1 className="font-display text-xl font-bold text-white">
             Админ нэвтрэлт
           </h1>
-          <p className="text-xs text-white/50">ХЭТ удирдлагын самбар</p>
+          <p className="text-xs text-white/50">Orasuits удирдлагын самбар</p>
         </div>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -76,7 +76,7 @@ function AdminLoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-neon/60"
-            placeholder="admin@khet.mn"
+            placeholder="admin@orasuits.mn"
           />
         </div>
         <div>

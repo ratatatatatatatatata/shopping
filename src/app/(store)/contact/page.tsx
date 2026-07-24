@@ -23,7 +23,7 @@ export default function ContactPage() {
         <AnimatedSection delay={0.1} className="space-y-4">
           {[
             { icon: Phone, title: "Утас", value: "+976 9999-9999" },
-            { icon: Mail, title: "И-мэйл", value: "hello@khet.mn" },
+            { icon: Mail, title: "И-мэйл", value: "hello@orasuits.mn" },
             { icon: MapPin, title: "Хаяг", value: "Улаанбаатар, Сүхбаатар дүүрэг" },
           ].map((c) => {
             const Icon = c.icon;

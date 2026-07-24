@@ -39,7 +39,7 @@ export function OrdersCsvButton({ orders }: { orders: Order[] }) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `khet-orders-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.download = `orasuits-orders-${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   }

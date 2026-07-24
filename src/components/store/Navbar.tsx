@@ -73,7 +73,7 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-1">
           <span className="font-display text-xl font-bold tracking-tight">
-            ХЭТ<span className="text-gradient">.</span>
+            Orasuits<span className="text-gradient">.</span>
           </span>
         </Link>
 
@@ -292,7 +292,7 @@ export function Navbar() {
               className="fixed right-0 top-0 z-50 flex h-full w-80 max-w-[85vw] flex-col overflow-y-auto bg-white p-6 md:hidden"
             >
               <div className="flex items-center justify-between">
-                <span className="font-display text-lg font-bold">ХЭТ.</span>
+                <span className="font-display text-lg font-bold">Orasuits.</span>
                 <button
                   onClick={() => setMobileOpen(false)}
                   className="rounded-full p-2 hover:bg-smoke"

@@ -16,23 +16,23 @@ const unbounded = Unbounded({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "ХЭТ — Шинэ үеийн стиль",
-    template: "%s | ХЭТ",
+    default: "Orasuits — Шинэ үеийн стиль",
+    template: "%s | Orasuits",
   },
   description:
     "Залуусын өдөр тутмын, streetwear болон premium casual хувцасны онлайн дэлгүүр.",
   openGraph: {
     type: "website",
-    siteName: "ХЭТ",
+    siteName: "Orasuits",
     locale: "mn_MN",
     url: SITE_URL,
-    title: "ХЭТ — Шинэ үеийн стиль",
+    title: "Orasuits — Шинэ үеийн стиль",
     description:
       "Залуусын өдөр тутмын, streetwear болон premium casual хувцасны онлайн дэлгүүр.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ХЭТ — Шинэ үеийн стиль",
+    title: "Orasuits — Шинэ үеийн стиль",
     description:
       "Залуусын өдөр тутмын, streetwear болон premium casual хувцасны онлайн дэлгүүр.",
   },

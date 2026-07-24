@@ -45,7 +45,7 @@ export function AdminSidebar() {
     <aside className="fixed inset-y-0 left-0 z-30 hidden w-60 flex-col border-r border-white/10 bg-ink text-white lg:flex">
       <div className="flex h-16 items-center px-6">
         <span className="font-display text-lg font-bold">
-          ХЭТ<span className="text-neon">.</span>{" "}
+          Orasuits<span className="text-neon">.</span>{" "}
           <span className="text-xs font-normal text-white/40">админ</span>
         </span>
       </div>

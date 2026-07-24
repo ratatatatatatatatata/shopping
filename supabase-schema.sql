@@ -1,5 +1,5 @@
 -- ============================================================
--- KHET Store v2 — Supabase Database Schema (full)
+-- Orasuits Store v2 — Supabase Database Schema (full)
 -- Run this FIRST in the Supabase SQL Editor (fresh project).
 -- ============================================================
 
@@ -259,7 +259,7 @@ create index idx_coupon_usage_coupon on public.coupon_usage(coupon_id);
 -- ---------- orders ----------
 create or replace function public.gen_order_number()
 returns text language sql as $$
-  select 'KH' || to_char(now(), 'YYMMDD') || '-' || lpad(floor(random() * 100000)::text, 5, '0');
+  select 'ORA' || to_char(now(), 'YYMMDD') || '-' || lpad(floor(random() * 100000)::text, 5, '0');
 $$;
 
 create table public.orders (

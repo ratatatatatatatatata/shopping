@@ -500,7 +500,7 @@ export function ProductForm({
                 <input
                   className="input"
                   {...register("sku")}
-                  placeholder="KHET-001"
+                  placeholder="ORA-001"
                 />
               </div>
               <div>
@@ -649,7 +649,7 @@ export function ProductForm({
               <input
                 className="input"
                 {...register("seo_title")}
-                placeholder="Oversized Hoodie — KHET"
+                placeholder="Oversized Hoodie — Orasuits"
               />
             </div>
             <div>

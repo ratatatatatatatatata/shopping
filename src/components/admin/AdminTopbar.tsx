@@ -48,7 +48,7 @@ export function AdminTopbar({ adminName }: { adminName: string }) {
             >
               <div className="flex items-center justify-between px-2 py-2">
                 <span className="font-display font-bold">
-                  ХЭТ<span className="text-neon">.</span> админ
+                  Orasuits<span className="text-neon">.</span> админ
                 </span>
                 <button
                   onClick={() => setMobileOpen(false)}

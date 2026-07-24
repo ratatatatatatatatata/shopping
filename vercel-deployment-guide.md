@@ -3,7 +3,7 @@
 ## 1. GitHub repo холбох
 
 1. https://vercel.com → **Add New… → Project**
-2. **Import Git Repository** → `khet-store` repo-гоо сонго
+2. **Import Git Repository** → `orasuits-store` repo-гоо сонго
 3. Framework Preset: **Next.js** (автоматаар танина)
 4. Build командыг өөрчлөх шаардлагагүй (`next build`)
 
@@ -20,7 +20,7 @@
 
 ## 3. Deploy
 
-**Deploy** товч дар. 1–2 минутын дараа `https://khet-store.vercel.app`
+**Deploy** товч дар. 1–2 минутын дараа `https://orasuits-store.vercel.app`
 маягийн домэйн дээр сайт ажиллана.
 
 Цаашид `main` branch руу push хийх бүрт Vercel автоматаар дахин deploy хийнэ:
@@ -42,7 +42,7 @@ Supabase Dashboard → **Authentication → URL Configuration**:
 
 ## 5. Custom domain (заавал биш)
 
-Vercel → **Settings → Domains** → өөрийн домэйн (жишээ нь `khet.mn`) нэмж,
+Vercel → **Settings → Domains** → өөрийн домэйн (жишээ нь `orasuits.mn`) нэмж,
 DNS дээр Vercel-ийн зааврын дагуу A/CNAME бичлэг тохируулна.
 
 ## 6. Түгээмэл асуудлууд

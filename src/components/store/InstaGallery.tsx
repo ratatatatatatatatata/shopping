@@ -14,7 +14,7 @@ export function InstaGallery({ products }: { products: Product[] }) {
     <AnimatedSection className="mx-auto max-w-7xl px-4 sm:px-6">
       <div className="mb-6 flex items-center justify-between">
         <h2 className="font-display text-2xl font-bold sm:text-3xl">
-          @khet.mn
+          @orasuits.mn
         </h2>
         <a
           href="#"
