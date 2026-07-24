@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -17,6 +18,12 @@ export interface DailySale {
 }
 
 export function SalesChart({ data }: { data: DailySale[] }) {
+  // Render recharts only in the browser (avoids SSR crashes)
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) {
+    return <div className="h-72 w-full animate-pulse rounded-xl bg-smoke" />;
+  }
   return (
     <div className="h-72 w-full">
       <ResponsiveContainer width="100%" height="100%">
