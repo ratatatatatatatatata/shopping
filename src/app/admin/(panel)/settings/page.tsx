@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { RoleManager } from "@/components/admin/RoleManager";
 import { formatDate } from "@/utils/format";
 
 export const dynamic = "force-dynamic";
@@ -19,6 +20,16 @@ const ROLE_LABELS: Record<string, string> = {
 
 export default async function AdminSettingsPage() {
   const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const { data: me } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user?.id ?? "")
+    .single();
+  const isSuperAdmin = me?.role === "super_admin";
 
   const [adminsRes, logsRes] = await Promise.all([
     supabase
@@ -65,14 +76,10 @@ export default async function AdminSettingsPage() {
             </div>
           ))}
         </div>
-        <p className="mt-4 rounded-xl bg-smoke p-3 text-xs text-neutral-500">
-          Шинэ админ нэмэхдээ Supabase SQL Editor дээр:{" "}
-          <code>
-            update profiles set role = &apos;admin&apos; where email =
-            &apos;...&apos;;
-          </code>{" "}
-          (эсвэл <code>&apos;super_admin&apos;</code>)
-        </p>
+        <div className="mt-5 border-t border-ink/5 pt-5">
+          <h3 className="mb-3 text-sm font-bold">Эрх олгох / хасах</h3>
+          <RoleManager isSuperAdmin={isSuperAdmin} />
+        </div>
       </div>
 
       <div className="card p-6">

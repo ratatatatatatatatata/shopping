@@ -196,3 +196,38 @@ create policy "admin deletes store objects" on storage.objects
 -- SUPER ADMIN SETUP: after registering on the site, run:
 -- update public.profiles set role = 'super_admin' where email = 'your-admin@email.com';
 -- ============================================================
+
+-- ============================================================
+-- ROLE MANAGEMENT (super_admin only)
+-- ============================================================
+
+-- Prevent role changes through the normal API entirely:
+-- authenticated users may only update these safe columns.
+revoke update on table public.profiles from anon, authenticated;
+grant update (full_name, phone, is_disabled, internal_note)
+  on table public.profiles to authenticated;
+
+-- The ONLY way to change a role: this function, callable by super_admin.
+create or replace function public.set_user_role(target_email text, new_role text)
+returns void language plpgsql security definer set search_path = public as $$
+declare
+  caller_role text;
+  target_id uuid;
+begin
+  select role into caller_role from public.profiles where id = auth.uid();
+  if caller_role is distinct from 'super_admin' then
+    raise exception 'NOT_AUTHORIZED';
+  end if;
+  if new_role not in ('customer', 'admin', 'super_admin') then
+    raise exception 'INVALID_ROLE';
+  end if;
+  select id into target_id from public.profiles where lower(email) = lower(target_email);
+  if target_id is null then
+    raise exception 'USER_NOT_FOUND';
+  end if;
+  if target_id = auth.uid() and new_role <> 'super_admin' then
+    raise exception 'CANNOT_DEMOTE_SELF';
+  end if;
+  update public.profiles set role = new_role where id = target_id;
+end;
+$$;
