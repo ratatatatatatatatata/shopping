@@ -37,11 +37,22 @@ export default function RegisterPage() {
     });
     setLoading(false);
     if (error) {
-      setError(
-        error.message.includes("already registered")
-          ? "Энэ и-мэйл аль хэдийн бүртгэлтэй байна."
-          : "Бүртгүүлэхэд алдаа гарлаа. Дахин оролдоно уу."
-      );
+      const msg = error.message.toLowerCase();
+      if (msg.includes("already registered"))
+        setError("Энэ и-мэйл аль хэдийн бүртгэлтэй байна. Нэвтэрч орно уу.");
+      else if (msg.includes("database error"))
+        setError(
+          "Өгөгдлийн сангийн алдаа: Supabase дээр schema SQL бүрэн ажиллаагүй байна. (" +
+            error.message +
+            ")"
+        );
+      else if (msg.includes("signups not allowed"))
+        setError(
+          "Бүртгэл хаалттай байна: Supabase → Authentication → Providers → Email дээр signup-ыг идэвхжүүлнэ үү."
+        );
+      else if (msg.includes("rate limit") || msg.includes("security purposes"))
+        setError("Хэт олон оролдлого. Хэсэг хүлээгээд дахин оролдоно уу.");
+      else setError("Алдаа: " + error.message);
       return;
     }
     if (data.session) {
