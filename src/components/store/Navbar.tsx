@@ -234,7 +234,8 @@ export function Navbar() {
                     >
                       <Heart className="h-4 w-4" /> Хадгалсан бараа
                     </Link>
-                    {profile?.role === "admin" && (
+                    {(profile?.role === "admin" ||
+                      profile?.role === "super_admin") && (
                       <Link
                         href="/admin/dashboard"
                         onClick={() => setDropdownOpen(false)}
