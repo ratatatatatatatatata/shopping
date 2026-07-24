@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-white text-ink antialiased;
+}
+
+::selection {
+  @apply bg-neon text-ink;
+}
+
+.text-gradient {
+  @apply bg-accent-gradient bg-clip-text text-transparent;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-white transition-all hover:scale-[1.03] hover:bg-neutral-800 active:scale-95 disabled:opacity-50 disabled:hover:scale-100;
+}
+
+.btn-neon {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-neon px-7 py-3.5 text-sm font-semibold text-ink transition-all hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(184,255,47,0.5)] active:scale-95 disabled:opacity-50;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-ink/15 bg-white px-7 py-3.5 text-sm font-semibold text-ink transition-all hover:border-ink hover:scale-[1.03] active:scale-95;
+}
+
+.input {
+  @apply w-full rounded-xl border border-ink/10 bg-smoke/60 px-4 py-3 text-sm outline-none transition-all placeholder:text-neutral-400 focus:border-ink/40 focus:bg-white focus:ring-2 focus:ring-neon/40;
+}
+
+.label {
+  @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-neutral-500;
+}
+
+.card {
+  @apply rounded-2xl border border-ink/5 bg-white shadow-sm;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-neutral-300;
+}
