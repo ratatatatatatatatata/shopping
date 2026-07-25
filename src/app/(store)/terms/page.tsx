@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { EditorialPage } from "@/components/store/EditorialPage";
 
 export const metadata = { title: "Үйлчилгээний нөхцөл" };
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 const FALLBACK = `Orasuits онлайн дэлгүүрээр үйлчлүүлснээр та дараах нөхцөлийг хүлээн зөвшөөрч байна.
 

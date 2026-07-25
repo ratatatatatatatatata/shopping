@@ -12,7 +12,7 @@ import {
 } from "@/components/store/CustomerReviews";
 import { Newsletter } from "@/components/store/Newsletter";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 const PRODUCT_SELECT =
   "*, categories(*), product_colors(*), product_variants(*)";

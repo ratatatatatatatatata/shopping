@@ -8,10 +8,10 @@ import { ProductCarousel } from "@/components/store/ProductCarousel";
 import { RecentlyViewed } from "@/components/store/RecentlyViewed";
 import { ReviewSection } from "@/components/store/ReviewSection";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 const PRODUCT_SELECT =
-  "*, categories(*), brands(*), product_colors(*), product_variants(*), product_images(*), reviews(*, profiles(full_name))";
+  "*, categories(*), brands(*), product_colors(*), product_variants(*), product_images(*), reviews(*)";
 
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;

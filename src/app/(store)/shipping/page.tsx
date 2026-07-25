@@ -9,7 +9,7 @@ import {
 import { formatPrice } from "@/utils/format";
 
 export const metadata = { title: "Хүргэлтийн мэдээлэл" };
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 const FALLBACK = `Улаанбаатар хот дотор энгийн хүргэлт 24–48 цагийн дотор хийгдэнэ. Шуурхай хүргэлтээр өдөртөө багтаан хүргэнэ.
 

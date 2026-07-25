@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { EditorialPage } from "@/components/store/EditorialPage";
 
 export const metadata = { title: "Нууцлалын бодлого" };
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 const FALLBACK = `Orasuits дэлгүүр таны хувийн мэдээллийг зөвхөн захиалга биелүүлэх, хүргэлт хийх зорилгоор ашигладаг.
 

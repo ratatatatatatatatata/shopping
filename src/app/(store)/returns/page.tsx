@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { EditorialPage } from "@/components/store/EditorialPage";
 
 export const metadata = { title: "Буцаалтын нөхцөл" };
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 const FALLBACK = `Худалдан авсан барааг хүлээн авснаас хойш 7 хоногийн дотор буцаах боломжтой.
 

@@ -33,6 +33,7 @@ export default function RegisterPage() {
       password: form.password,
       options: {
         data: { full_name: form.fullName, phone: form.phone },
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
       },
     });
     setLoading(false);

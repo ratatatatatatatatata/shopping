@@ -14,7 +14,6 @@ export default async function AdminCustomersPage() {
     supabase
       .from("profiles")
       .select("*")
-      .eq("role", "customer")
       .order("created_at", { ascending: false }),
     supabase
       .from("orders")
