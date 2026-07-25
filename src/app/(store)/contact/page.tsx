@@ -1,11 +1,27 @@
-"use client";
-
-import { useState } from "react";
-import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { Mail, MapPin, Phone, Clock } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
 import { AnimatedSection } from "@/components/store/AnimatedSection";
+import { ContactMessageForm } from "@/components/store/ContactMessageForm";
 
-export default function ContactPage() {
-  const [sent, setSent] = useState(false);
+export const metadata = { title: "Холбоо барих" };
+export const dynamic = "force-dynamic";
+
+export default async function ContactPage() {
+  // Admin-managed contact info (site_settings.contact)
+  let contact: { phone?: string; email?: string; address?: string; hours?: string } = {};
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("site_settings")
+    .select("value")
+    .eq("key", "contact")
+    .maybeSingle();
+  if (data?.value) contact = data.value as typeof contact;
+
+  const items = [
+    { icon: Phone, title: "Утас", value: contact.phone || "+976 9999-9999" },
+    { icon: Mail, title: "И-мэйл", value: contact.email || "hello@orasuits.mn" },
+    { icon: MapPin, title: "Хаяг", value: contact.address || "Улаанбаатар, Монгол" },
+  ];
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6">
@@ -21,11 +37,7 @@ export default function ContactPage() {
 
       <div className="mt-10 grid gap-8 lg:grid-cols-2">
         <AnimatedSection delay={0.1} className="space-y-4">
-          {[
-            { icon: Phone, title: "Утас", value: "+976 9999-9999" },
-            { icon: Mail, title: "И-мэйл", value: "hello@orasuits.mn" },
-            { icon: MapPin, title: "Хаяг", value: "Улаанбаатар, Сүхбаатар дүүрэг" },
-          ].map((c) => {
+          {items.map((c) => {
             const Icon = c.icon;
             return (
               <div key={c.title} className="card flex items-center gap-4 p-5">
@@ -41,45 +53,23 @@ export default function ContactPage() {
               </div>
             );
           })}
-          <div className="card p-5">
-            <p className="text-xs uppercase tracking-wide text-neutral-400">
-              Ажиллах цаг
-            </p>
-            <p className="mt-1 font-semibold">Өдөр бүр 10:00 – 22:00</p>
+          <div className="card flex items-center gap-4 p-5">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-neon">
+              <Clock className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-xs uppercase tracking-wide text-neutral-400">
+                Ажиллах цаг
+              </p>
+              <p className="font-semibold">
+                {contact.hours || "Өдөр бүр 10:00 – 22:00"}
+              </p>
+            </div>
           </div>
         </AnimatedSection>
 
         <AnimatedSection delay={0.2}>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSent(true);
-            }}
-            className="card space-y-4 p-6"
-          >
-            <h2 className="font-display text-lg font-bold">Мессеж илгээх</h2>
-            <div>
-              <label className="label">Нэр</label>
-              <input required className="input" placeholder="Таны нэр" />
-            </div>
-            <div>
-              <label className="label">И-мэйл</label>
-              <input required type="email" className="input" placeholder="email@example.com" />
-            </div>
-            <div>
-              <label className="label">Мессеж</label>
-              <textarea required className="input min-h-[120px]" placeholder="Таны асуулт..." />
-            </div>
-            {sent ? (
-              <p className="rounded-xl bg-emerald-50 p-3 text-sm font-medium text-emerald-700">
-                Мессеж илгээгдлээ. Бид удахгүй хариулах болно!
-              </p>
-            ) : (
-              <button type="submit" className="btn-primary w-full">
-                <Send className="h-4 w-4" /> Илгээх
-              </button>
-            )}
-          </form>
+          <ContactMessageForm />
         </AnimatedSection>
       </div>
     </div>

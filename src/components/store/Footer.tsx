@@ -1,7 +1,40 @@
 import Link from "next/link";
 import { Instagram, Facebook, Phone, Mail } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
 
-export function Footer() {
+interface ContactSettings {
+  phone?: string;
+  email?: string;
+  address?: string;
+  hours?: string;
+}
+interface SocialSettings {
+  instagram?: string;
+  facebook?: string;
+}
+
+export async function Footer() {
+  // Contact + social links come from admin-managed site_settings
+  let contact: ContactSettings = {};
+  let social: SocialSettings = {};
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from("site_settings")
+      .select("key, value")
+      .in("key", ["contact", "social"]);
+    for (const row of data ?? []) {
+      if (row.key === "contact") contact = row.value as ContactSettings;
+      if (row.key === "social") social = row.value as SocialSettings;
+    }
+  } catch {
+    // fall back to defaults below
+  }
+
+  const phone = contact.phone || "+976 9999-9999";
+  const email = contact.email || "hello@orasuits.mn";
+  const address = contact.address || "Улаанбаатар, Монгол";
+
   return (
     <footer className="mt-24 bg-ink text-white">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
@@ -14,10 +47,22 @@ export function Footer() {
               Шинэ үеийн streetwear болон premium casual хувцасны онлайн дэлгүүр.
             </p>
             <div className="mt-5 flex gap-3">
-              <a href="#" aria-label="Instagram" className="rounded-full bg-white/10 p-2.5 transition-colors hover:bg-neon hover:text-ink">
+              <a
+                href={social.instagram || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="rounded-full bg-white/10 p-2.5 transition-colors hover:bg-neon hover:text-ink"
+              >
                 <Instagram className="h-4 w-4" />
               </a>
-              <a href="#" aria-label="Facebook" className="rounded-full bg-white/10 p-2.5 transition-colors hover:bg-neon hover:text-ink">
+              <a
+                href={social.facebook || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="rounded-full bg-white/10 p-2.5 transition-colors hover:bg-neon hover:text-ink"
+              >
                 <Facebook className="h-4 w-4" />
               </a>
             </div>
@@ -52,12 +97,12 @@ export function Footer() {
             </h4>
             <ul className="space-y-2.5 text-sm text-white/70">
               <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-neon" /> +976 9999-9999
+                <Phone className="h-4 w-4 text-neon" /> {phone}
               </li>
               <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-neon" /> hello@orasuits.mn
+                <Mail className="h-4 w-4 text-neon" /> {email}
               </li>
-              <li>Улаанбаатар, Монгол</li>
+              <li>{address}</li>
             </ul>
           </div>
         </div>
