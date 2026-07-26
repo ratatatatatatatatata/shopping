@@ -243,7 +243,8 @@ export function SearchFilter({
   );
 
   return (
-    <>
+    // Single root element: the parent grid expects exactly one child here
+    <div>
       {/* Sort + mobile filter toggle */}
       <div className="mb-6 flex items-center justify-between gap-3">
         <button
@@ -255,7 +256,7 @@ export function SearchFilter({
         <select
           value={params.get("sort") ?? "newest"}
           onChange={(e) => setParam("sort", e.target.value)}
-          className="input !w-auto cursor-pointer !py-2 text-xs"
+          className="input cursor-pointer !py-2 text-xs lg:!w-full"
         >
           {SORTS.map((s) => (
             <option key={s.value} value={s.value}>
@@ -300,6 +301,6 @@ export function SearchFilter({
           </>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 }
