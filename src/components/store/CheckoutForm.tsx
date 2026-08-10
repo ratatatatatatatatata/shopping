@@ -329,7 +329,7 @@ export function CheckoutForm({
 
       {/* Order summary */}
       <div className="lg:col-span-2">
-        <div className="card sticky top-24 p-6">
+        <div className="card p-6 lg:sticky lg:top-24">
           <h2 className="mb-5 font-display text-lg font-bold">
             Захиалгын мэдээлэл
           </h2>
@@ -358,8 +358,8 @@ export function CheckoutForm({
           {/* Coupon */}
           <div className="mt-5 border-t border-ink/5 pt-4">
             <label className="label">Купон код</label>
-            <div className="flex gap-2">
-              <div className="relative flex-1">
+            <div className="flex flex-wrap gap-2">
+              <div className="relative min-w-[9rem] flex-1">
                 <Tag className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
                 <input
                   className="input !pl-10 uppercase"

@@ -114,7 +114,7 @@ export function HeroSection({
       </div>
 
       {/* Marquee */}
-      <div className="relative border-t border-white/10 py-3">
+      <div className="relative overflow-hidden border-t border-white/10 py-3">
         <div className="flex w-max animate-marquee gap-8 whitespace-nowrap text-sm font-semibold uppercase tracking-widest text-white/30">
           {Array.from({ length: 2 }).map((_, i) => (
             <span key={i} className="flex gap-8">

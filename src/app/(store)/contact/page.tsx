@@ -41,20 +41,20 @@ export default async function ContactPage() {
             const Icon = c.icon;
             return (
               <div key={c.title} className="card flex items-center gap-4 p-5">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-neon">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ink text-neon">
                   <Icon className="h-5 w-5" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <p className="text-xs uppercase tracking-wide text-neutral-400">
                     {c.title}
                   </p>
-                  <p className="font-semibold">{c.value}</p>
+                  <p className="break-words font-semibold">{c.value}</p>
                 </div>
               </div>
             );
           })}
           <div className="card flex items-center gap-4 p-5">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-neon">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ink text-neon">
               <Clock className="h-5 w-5" />
             </div>
             <div>

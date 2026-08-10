@@ -72,7 +72,7 @@ export function Navbar() {
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-1">
-          <span className="font-display text-xl font-bold tracking-tight">
+          <span className="font-display text-lg font-bold tracking-tight sm:text-xl">
             Orasuits<span className="text-gradient">.</span>
           </span>
         </Link>
@@ -143,7 +143,7 @@ export function Navbar() {
         <div className="flex items-center gap-1 sm:gap-2">
           <Link
             href="/search"
-            className="rounded-full p-2.5 transition-colors hover:bg-smoke"
+            className="rounded-full p-2 transition-colors hover:bg-smoke sm:p-2.5"
             aria-label="Хайх"
           >
             <Search className="h-5 w-5" />
@@ -151,7 +151,7 @@ export function Navbar() {
 
           <Link
             href="/wishlist"
-            className="relative rounded-full p-2.5 transition-colors hover:bg-smoke"
+            className="relative rounded-full p-2 transition-colors hover:bg-smoke sm:p-2.5"
             aria-label="Хадгалсан бараа"
           >
             <Heart className="h-5 w-5" />
@@ -169,7 +169,7 @@ export function Navbar() {
 
           <button
             onClick={openCart}
-            className="relative rounded-full p-2.5 transition-colors hover:bg-smoke"
+            className="relative rounded-full p-2 transition-colors hover:bg-smoke sm:p-2.5"
             aria-label="Сагс"
           >
             <ShoppingBag className="h-5 w-5" />
@@ -265,7 +265,7 @@ export function Navbar() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen(true)}
-            className="rounded-full p-2.5 hover:bg-smoke md:hidden"
+            className="rounded-full p-2 hover:bg-smoke sm:p-2.5 md:hidden"
             aria-label="Цэс"
           >
             <Menu className="h-5 w-5" />

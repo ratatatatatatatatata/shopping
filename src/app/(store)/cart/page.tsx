@@ -108,7 +108,7 @@ export default function CartPage() {
           </div>
 
           <div>
-            <div className="card sticky top-24 p-6">
+            <div className="card p-6 lg:sticky lg:top-24">
               <h2 className="font-display text-lg font-bold">Нийт дүн</h2>
               <div className="mt-4 space-y-2 text-sm">
                 <div className="flex justify-between text-neutral-500">

@@ -97,10 +97,11 @@ export async function Footer() {
             </h4>
             <ul className="space-y-2.5 text-sm text-white/70">
               <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-neon" /> {phone}
+                <Phone className="h-4 w-4 shrink-0 text-neon" /> {phone}
               </li>
               <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-neon" /> {email}
+                <Mail className="h-4 w-4 shrink-0 text-neon" />{" "}
+                <span className="break-all">{email}</span>
               </li>
               <li>{address}</li>
             </ul>

@@ -49,7 +49,7 @@ export default async function SearchPage({
           defaultValue={term}
           placeholder="Барааны нэр, түлхүүр үгээр хайх..."
           autoFocus
-          className="input !rounded-full !py-4 !pl-14 text-base"
+          className="input !rounded-full !py-4 !pl-14 !pr-24 text-base"
         />
         <button
           type="submit"

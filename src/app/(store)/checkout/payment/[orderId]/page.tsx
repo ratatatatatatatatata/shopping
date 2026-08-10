@@ -92,7 +92,7 @@ export default async function PaymentPage({
         <h3 className="mb-4 font-display font-bold">Захиалгын дэлгэрэнгүй</h3>
         <div className="space-y-2 text-sm">
           {order.order_items?.map((item) => (
-            <div key={item.id} className="flex justify-between">
+            <div key={item.id} className="flex justify-between gap-3">
               <span className="text-neutral-600">
                 {item.product_name} ({item.color_name}, {item.size}) ×{" "}
                 {item.quantity}
@@ -149,7 +149,7 @@ export default async function PaymentPage({
         )}
       </div>
 
-      <div className="mt-8 flex justify-center gap-3">
+      <div className="mt-8 flex flex-wrap justify-center gap-3">
         <Link href="/account/orders" className="btn-primary">
           Захиалга хянах
         </Link>

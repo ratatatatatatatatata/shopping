@@ -75,7 +75,7 @@ export function SizeSelector({
               initial={{ opacity: 0, scale: 0.94, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.94, y: 20 }}
-              className="fixed left-1/2 top-1/2 z-50 w-[90vw] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-white p-6 shadow-2xl"
+              className="fixed left-1/2 top-1/2 z-50 max-h-[85vh] w-[90vw] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-3xl bg-white p-6 shadow-2xl"
             >
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="font-display font-bold">Размерын заавар</h3>

@@ -38,17 +38,17 @@ export function BankTransferBox({
         {rows.map((r) => (
           <div
             key={r.key}
-            className="flex items-center justify-between rounded-xl bg-smoke px-4 py-3"
+            className="flex items-center justify-between gap-2 rounded-xl bg-smoke px-4 py-3"
           >
-            <div>
+            <div className="min-w-0 flex-1">
               <p className="text-[11px] uppercase tracking-wide text-neutral-400">
                 {r.label}
               </p>
-              <p className="text-sm font-semibold">{r.value}</p>
+              <p className="break-all text-sm font-semibold">{r.value}</p>
             </div>
             <button
               onClick={() => copy(r.key, r.value)}
-              className="rounded-full p-2 transition-colors hover:bg-white"
+              className="shrink-0 rounded-full p-2 transition-colors hover:bg-white"
               aria-label="Хуулах"
             >
               {copied === r.key ? (
