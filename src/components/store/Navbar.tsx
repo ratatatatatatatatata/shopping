@@ -68,6 +68,7 @@ export function Navbar() {
   }
 
   return (
+    <>
     <header className="sticky top-0 z-40 border-b border-ink/5 bg-white/80 backdrop-blur-xl">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
@@ -272,9 +273,11 @@ export function Navbar() {
           </button>
         </div>
       </nav>
+    </header>
 
-      {/* Mobile menu */}
-      <AnimatePresence>
+    {/* Mobile menu — MUST live outside <header>: its backdrop-blur creates a
+        containing block that would trap this fixed drawer inside the 64px bar */}
+    <AnimatePresence>
         {mobileOpen && (
           <>
             <motion.div
@@ -379,6 +382,6 @@ export function Navbar() {
           </>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
