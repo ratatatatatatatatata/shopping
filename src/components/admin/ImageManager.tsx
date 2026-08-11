@@ -72,6 +72,15 @@ export function ImageManager({
     onChange(next);
   }
 
+  /** Move an image to an exact position (1-based select). */
+  function moveTo(index: number, target: number) {
+    if (target < 0 || target >= images.length || target === index) return;
+    const next = [...images];
+    const [item] = next.splice(index, 1);
+    next.splice(target, 0, item);
+    onChange(next);
+  }
+
   function setCover(index: number) {
     onChange(images.map((img, i) => ({ ...img, is_cover: i === index })));
   }
@@ -90,12 +99,17 @@ export function ImageManager({
             exit={{ opacity: 0, scale: 0.97 }}
             className="flex flex-wrap items-center gap-3 rounded-2xl border border-ink/10 p-3"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={img.previewUrl || img.url}
-              alt=""
-              className="h-16 w-14 shrink-0 rounded-xl bg-smoke object-cover"
-            />
+            <div className="relative shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={img.previewUrl || img.url}
+                alt=""
+                className="h-16 w-14 rounded-xl bg-smoke object-cover"
+              />
+              <span className="absolute -left-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-ink text-[10px] font-bold text-white">
+                {i + 1}
+              </span>
+            </div>
             <div className="min-w-[140px] flex-1">
               <input
                 className="input !py-1.5 text-xs"
@@ -104,6 +118,18 @@ export function ImageManager({
                 placeholder="Alt тайлбар"
               />
             </div>
+            <select
+              className="input !w-28 cursor-pointer !py-1.5 text-xs"
+              value={i}
+              onChange={(e) => moveTo(i, Number(e.target.value))}
+              title="Байрлал сонгох"
+            >
+              {images.map((_, pos) => (
+                <option key={pos} value={pos}>
+                  Байрлал {pos + 1}
+                </option>
+              ))}
+            </select>
             <select
               className="input !w-36 !py-1.5 text-xs"
               value={img.colorKey ?? ""}
