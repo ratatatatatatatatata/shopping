@@ -59,6 +59,7 @@ export function ProductCard({ product }: { product: Product }) {
             src={product.main_image_url ?? ""}
             alt={product.name}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+            style={{ objectPosition: product.image_position ?? "center" }}
           />
           {!inStock && (
             <div className="absolute inset-0 flex items-center justify-center bg-white/60 backdrop-blur-[2px]">

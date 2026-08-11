@@ -16,6 +16,8 @@ export interface ImageDraft {
   /** Local key of the color this image belongs to (ColorDraft._key), or null. */
   colorKey: string | null;
   is_cover: boolean;
+  /** CSS object-position: which part of the photo stays visible when cropped. */
+  object_position: string;
 }
 
 export function newImageKey(): string {
@@ -53,6 +55,7 @@ export function ImageManager({
         alt: "",
         colorKey: null,
         is_cover: next.length === 0 && images.length === 0,
+        object_position: "center",
       });
     }
     onChange(next);
@@ -105,6 +108,7 @@ export function ImageManager({
                 src={img.previewUrl || img.url}
                 alt=""
                 className="h-16 w-14 rounded-xl bg-smoke object-cover"
+                style={{ objectPosition: img.object_position }}
               />
               <span className="absolute -left-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-ink text-[10px] font-bold text-white">
                 {i + 1}
@@ -129,6 +133,16 @@ export function ImageManager({
                   Байрлал {pos + 1}
                 </option>
               ))}
+            </select>
+            <select
+              className="input !w-32 cursor-pointer !py-1.5 text-xs"
+              value={img.object_position}
+              onChange={(e) => update(i, { object_position: e.target.value })}
+              title="Зургийн аль хэсэг харагдахыг сонгох"
+            >
+              <option value="top">Дээд хэсэг</option>
+              <option value="center">Төв хэсэг</option>
+              <option value="bottom">Доод хэсэг</option>
             </select>
             <select
               className="input !w-36 !py-1.5 text-xs"

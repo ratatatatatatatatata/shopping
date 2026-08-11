@@ -82,6 +82,7 @@ export function ProductForm({
     is_new_arrival: product?.is_new_arrival ?? false,
     is_best_seller: product?.is_best_seller ?? false,
     sort_order: product?.sort_order ?? 0,
+    image_position: product?.image_position ?? "center",
   });
 
   const [mainImage, setMainImage] = useState<{
@@ -124,6 +125,7 @@ export function ProductForm({
         alt: img.alt ?? "",
         colorKey: img.color_id, // existing colors use their id as _key
         is_cover: img.is_cover,
+        object_position: img.object_position ?? "center",
       }))
   );
 
@@ -220,6 +222,7 @@ export function ProductForm({
         is_new_arrival: flags.is_new_arrival,
         is_best_seller: flags.is_best_seller,
         sort_order: Number(flags.sort_order) || 0,
+        image_position: flags.image_position,
         seo_title: values.seo_title || null,
         seo_description: values.seo_description || null,
         tags,
@@ -375,6 +378,7 @@ export function ProductForm({
           alt: img.alt || null,
           sort_order: i,
           is_cover: img.is_cover,
+          object_position: img.object_position,
         };
         if (img.id) {
           const { error: err } = await supabase
@@ -675,6 +679,7 @@ export function ProductForm({
                 src={mainImage.previewUrl || mainImage.url}
                 alt=""
                 className="h-full w-full object-cover"
+                style={{ objectPosition: flags.image_position }}
               />
             ) : (
               <div className="text-center text-neutral-400">
@@ -700,6 +705,24 @@ export function ProductForm({
               }}
             />
           </label>
+          <div className="mt-3">
+            <label className="label">Зургийн аль хэсэг харагдах вэ?</label>
+            <select
+              className="input cursor-pointer !py-2 text-sm"
+              value={flags.image_position}
+              onChange={(e) =>
+                setFlags({ ...flags, image_position: e.target.value })
+              }
+            >
+              <option value="top">Дээд хэсэг (толгой/захын хэсэг)</option>
+              <option value="center">Төв хэсэг</option>
+              <option value="bottom">Доод хэсэг</option>
+            </select>
+            <p className="mt-1.5 text-xs text-neutral-400">
+              Барааны карт 3:4 харьцаатай тул зураг тайрагдана — дээрх
+              урьдчилсан харагдацаас шалгаарай.
+            </p>
+          </div>
         </div>
 
         {/* e) 3D model */}

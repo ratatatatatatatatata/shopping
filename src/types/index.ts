@@ -64,6 +64,7 @@ export interface Product {
   sale_start_at: string | null;
   sale_end_at: string | null;
   main_image_url: string | null;
+  image_position: string | null;
   model_url: string | null;
   status: ProductStatus;
   is_featured: boolean;
@@ -116,6 +117,7 @@ export interface ProductImage {
   alt: string | null;
   sort_order: number;
   is_cover: boolean;
+  object_position: string | null;
   created_at: string;
 }
 

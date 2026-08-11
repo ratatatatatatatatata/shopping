@@ -7,12 +7,17 @@ export function ProductGallery({
   activeImage,
   onSelect,
   alt,
+  positions,
 }: {
   images: string[];
   activeImage: string;
   onSelect: (url: string) => void;
   alt: string;
+  /** url -> CSS object-position (which part stays visible when cropped) */
+  positions?: Record<string, string>;
 }) {
+  const pos = (url: string) => positions?.[url] ?? "center";
+
   return (
     <div>
       <div className="relative aspect-[3/4] overflow-hidden rounded-3xl bg-smoke">
@@ -26,6 +31,7 @@ export function ProductGallery({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
             className="h-full w-full object-cover"
+            style={{ objectPosition: pos(activeImage) }}
           />
         </AnimatePresence>
       </div>
@@ -42,7 +48,12 @@ export function ProductGallery({
               }`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={img} alt="" className="h-full w-full object-cover" />
+              <img
+                src={img}
+                alt=""
+                className="h-full w-full object-cover"
+                style={{ objectPosition: pos(img) }}
+              />
             </button>
           ))}
         </div>

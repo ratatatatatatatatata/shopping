@@ -150,6 +150,22 @@ export function ProductDetailClient({ product }: { product: Product }) {
     return Array.from(new Set(urls));
   }, [productImages, selectedColor, product.main_image_url, colors]);
 
+  // url -> object-position: per-image setting, product-level fallback
+  const imagePositions = useMemo(() => {
+    const fallback = product.image_position ?? "center";
+    const map: Record<string, string> = {};
+    for (const img of productImages) {
+      map[img.url] = img.object_position ?? fallback;
+    }
+    if (product.main_image_url && !map[product.main_image_url]) {
+      map[product.main_image_url] = fallback;
+    }
+    for (const c of colors) {
+      if (c.image_url && !map[c.image_url]) map[c.image_url] = fallback;
+    }
+    return map;
+  }, [productImages, product.main_image_url, product.image_position, colors]);
+
   const displayedImage =
     activeImage && galleryImages.includes(activeImage)
       ? activeImage
@@ -233,6 +249,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
         ) : (
           <ProductGallery
             images={galleryImages}
+            positions={imagePositions}
             activeImage={displayedImage}
             onSelect={handleImageSelect}
             alt={product.name}

@@ -96,6 +96,7 @@ create table public.products (
   sale_start_at timestamptz,
   sale_end_at timestamptz,
   main_image_url text,
+  image_position text not null default 'center', -- object-position for cropped views
   model_url text, -- optional GLB/GLTF 3D model
   status text not null default 'draft' check (status in ('draft', 'published', 'archived')),
   is_featured boolean not null default false,
@@ -157,6 +158,7 @@ create table public.product_images (
   alt text,
   sort_order integer not null default 0,
   is_cover boolean not null default false,
+  object_position text not null default 'center',
   created_at timestamptz not null default now()
 );
 create index idx_images_product on public.product_images(product_id);
