@@ -29,6 +29,8 @@ interface FormState {
   is_visible: boolean;
   sort_order: number;
   image_url: string;
+  image_position: string;
+  image_fit: string;
   file?: File;
   previewUrl?: string;
 }
@@ -39,6 +41,8 @@ const EMPTY: FormState = {
   is_visible: true,
   sort_order: 0,
   image_url: "",
+  image_position: "center",
+  image_fit: "cover",
 };
 
 export function CategoryManager({
@@ -69,6 +73,8 @@ export function CategoryManager({
       is_visible: c.is_visible,
       sort_order: c.sort_order,
       image_url: c.image_url ?? "",
+      image_position: c.image_position ?? "center",
+      image_fit: c.image_fit ?? "cover",
     });
     setError(null);
     setModalOpen(true);
@@ -93,6 +99,8 @@ export function CategoryManager({
         is_visible: form.is_visible,
         sort_order: Number(form.sort_order) || 0,
         image_url: imageUrl || null,
+        image_position: form.image_position,
+        image_fit: form.image_fit,
       };
 
       if (form.id) {
@@ -210,7 +218,12 @@ export function CategoryManager({
                     <img
                       src={c.image_url ?? ""}
                       alt=""
-                      className="h-11 w-11 rounded-lg bg-smoke object-cover"
+                      className={`h-11 w-11 rounded-lg bg-smoke ${
+                        c.image_fit === "contain"
+                          ? "object-contain"
+                          : "object-cover"
+                      }`}
+                      style={{ objectPosition: c.image_position ?? "center" }}
                     />
                     <span className="font-semibold">{c.name}</span>
                   </div>
@@ -344,7 +357,12 @@ export function CategoryManager({
                       <img
                         src={form.previewUrl || form.image_url}
                         alt=""
-                        className="h-full w-full object-cover"
+                        className={`h-full w-full ${
+                          form.image_fit === "contain"
+                            ? "object-contain"
+                            : "object-cover"
+                        }`}
+                        style={{ objectPosition: form.image_position }}
                       />
                     ) : (
                       <div className="text-center text-neutral-400">
@@ -367,6 +385,40 @@ export function CategoryManager({
                       }}
                     />
                   </label>
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <label className="label">Харуулах хэлбэр</label>
+                      <select
+                        className="input cursor-pointer !py-2 text-sm"
+                        value={form.image_fit}
+                        onChange={(e) =>
+                          setForm({ ...form, image_fit: e.target.value })
+                        }
+                      >
+                        <option value="cover">Дүүргэж харуулах (тайрна)</option>
+                        <option value="contain">Бүтнээр харуулах</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="label">Аль хэсэг харагдах</label>
+                      <select
+                        className="input cursor-pointer !py-2 text-sm disabled:opacity-40"
+                        value={form.image_position}
+                        disabled={form.image_fit === "contain"}
+                        onChange={(e) =>
+                          setForm({ ...form, image_position: e.target.value })
+                        }
+                      >
+                        <option value="top">Дээд хэсэг</option>
+                        <option value="center">Төв хэсэг</option>
+                        <option value="bottom">Доод хэсэг</option>
+                      </select>
+                    </div>
+                  </div>
+                  <p className="mt-1.5 text-xs text-neutral-400">
+                    Ангилал нүүр хуудсанд квадрат хэлбэрээр гарна — дээрх
+                    урьдчилсан харагдацаас шалгаарай.
+                  </p>
                 </div>
                 <label className="flex cursor-pointer items-center justify-between">
                   <span className="text-sm font-medium">

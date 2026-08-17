@@ -18,7 +18,12 @@ export function CategorySection({ categories }: { categories: Category[] }) {
                 <img
                   src={c.image_url ?? ""}
                   alt={c.name}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className={`h-full w-full transition-transform duration-500 group-hover:scale-110 ${
+                    c.image_fit === "contain"
+                      ? "object-contain"
+                      : "object-cover"
+                  }`}
+                  style={{ objectPosition: c.image_position ?? "center" }}
                 />
               </div>
               <p className="mt-2.5 text-center text-sm font-semibold transition-colors group-hover:text-electric">

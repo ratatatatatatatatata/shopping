@@ -66,6 +66,8 @@ create table public.categories (
   name text not null,
   slug text not null unique,
   image_url text,
+  image_position text not null default 'center', -- which part shows when cropped
+  image_fit text not null default 'cover',       -- cover = crop, contain = show whole image
   parent_id uuid references public.categories(id) on delete set null,
   is_visible boolean not null default true,
   sort_order integer not null default 0,

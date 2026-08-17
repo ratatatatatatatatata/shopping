@@ -19,7 +19,7 @@ export async function generateMetadata({
   const supabase = await createClient();
   const { data } = await supabase
     .from("categories")
-    .select("name, slug, image_url")
+    .select("name, slug, image_url, image_position")
     .eq("slug", slug)
     .eq("is_visible", true)
     .maybeSingle();
@@ -108,6 +108,7 @@ export default async function CategoryPage({
             src={category.image_url}
             alt={category.name}
             className="absolute inset-0 h-full w-full object-cover opacity-40"
+            style={{ objectPosition: category.image_position ?? "center" }}
           />
         )}
         <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-grape/30 blur-[100px]" />

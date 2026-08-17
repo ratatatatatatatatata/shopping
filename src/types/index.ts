@@ -38,6 +38,8 @@ export interface Category {
   name: string;
   slug: string;
   image_url: string | null;
+  image_position: string | null;
+  image_fit: string | null;
   parent_id: string | null;
   is_visible: boolean;
   sort_order: number;
