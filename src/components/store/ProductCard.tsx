@@ -9,6 +9,20 @@ import { useWishlist } from "@/hooks/useWishlist";
 import { formatPrice, cn } from "@/utils/format";
 import { staggerItem } from "./AnimatedSection";
 
+const SIZE_ORDER = ["XXS", "XS", "S", "M", "L", "XL", "2XL", "XXL", "3XL", "XXXL"];
+
+function sortSizes(a: string, b: string) {
+  const aIndex = SIZE_ORDER.indexOf(a.toUpperCase());
+  const bIndex = SIZE_ORDER.indexOf(b.toUpperCase());
+
+  if (aIndex === -1 && bIndex === -1) {
+    return a.localeCompare(b, undefined, { numeric: true });
+  }
+  if (aIndex === -1) return 1;
+  if (bIndex === -1) return -1;
+  return aIndex - bIndex;
+}
+
 export function ProductCard({ product }: { product: Product }) {
   const addItem = useCart((s) => s.addItem);
   const wishlisted = useWishlist((s) => s.productIds.includes(product.id));
@@ -16,7 +30,14 @@ export function ProductCard({ product }: { product: Product }) {
 
   const colors = product.product_colors ?? [];
   const variants = product.product_variants ?? [];
-  const sizes = Array.from(new Set(variants.map((v) => v.size)));
+  const sizes = Array.from(
+    new Set(
+      variants
+        .filter((variant) => variant.stock_quantity > 0)
+        .map((variant) => variant.size.trim())
+        .filter(Boolean)
+    )
+  ).sort(sortSizes);
   const inStock = variants.some((v) => v.stock_quantity > 0);
 
   const basePrice = Number(product.base_price);
@@ -129,7 +150,7 @@ export function ProductCard({ product }: { product: Product }) {
               </span>
             )}
           </div>
-          <div className="mt-2 flex items-center justify-between">
+          <div className="mt-2 flex items-end justify-between gap-2">
             <div className="flex gap-1">
               {colors.slice(0, 4).map((c) => (
                 <span
@@ -140,9 +161,26 @@ export function ProductCard({ product }: { product: Product }) {
                 />
               ))}
             </div>
-            <span className="text-[11px] text-neutral-400">
-              {sizes.slice(0, 4).join(" / ")}
-            </span>
+            {sizes.length > 0 && (
+              <div
+                aria-label={`Бэлэн размер: ${sizes.join(", ")}`}
+                className="flex max-w-[65%] flex-wrap justify-end gap-1"
+              >
+                {sizes.slice(0, 4).map((size) => (
+                  <span
+                    key={size}
+                    className="inline-flex min-w-7 items-center justify-center rounded-md border border-ink/15 bg-white px-1.5 py-1 text-[10px] font-semibold leading-none text-ink transition-colors group-hover:border-ink/40"
+                  >
+                    {size}
+                  </span>
+                ))}
+                {sizes.length > 4 && (
+                  <span className="inline-flex items-center px-0.5 text-[10px] font-medium text-neutral-400">
+                    +{sizes.length - 4}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </Link>
