@@ -92,6 +92,14 @@ create table public.products (
   description text,
   material text,
   care_instructions text,
+  size_guide jsonb check (
+    size_guide is null
+    or (
+      jsonb_typeof(size_guide) = 'object'
+      and coalesce(jsonb_typeof(size_guide -> 'columns') = 'array', false)
+      and coalesce(jsonb_typeof(size_guide -> 'rows') = 'array', false)
+    )
+  ),
   base_price numeric(12,2) not null default 0,
   sale_price numeric(12,2),
   cost_price numeric(12,2),

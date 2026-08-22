@@ -346,6 +346,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
         <SizeSelector
           variants={colorVariants}
           selected={selectedVariant}
+          sizeGuide={product.size_guide}
           onSelect={(v) => {
             setSelectedVariant(v);
             setQuantity(1);

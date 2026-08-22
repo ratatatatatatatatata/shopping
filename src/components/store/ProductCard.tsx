@@ -7,6 +7,10 @@ import { effectivePrice, variantPrice, type Product } from "@/types";
 import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
 import { formatPrice, cn } from "@/utils/format";
+import {
+  isAvailableSizeVariant,
+  uniqueSortedAvailableSizes,
+} from "@/utils/sizes";
 import { staggerItem } from "./AnimatedSection";
 
 export function ProductCard({ product }: { product: Product }) {
@@ -16,8 +20,9 @@ export function ProductCard({ product }: { product: Product }) {
 
   const colors = product.product_colors ?? [];
   const variants = product.product_variants ?? [];
-  const sizes = Array.from(new Set(variants.map((v) => v.size)));
-  const inStock = variants.some((v) => v.stock_quantity > 0);
+  const availableVariants = variants.filter(isAvailableSizeVariant);
+  const sizes = uniqueSortedAvailableSizes(availableVariants);
+  const inStock = availableVariants.length > 0;
 
   const basePrice = Number(product.base_price);
   const price = effectivePrice(product);
@@ -26,7 +31,7 @@ export function ProductCard({ product }: { product: Product }) {
 
   function quickAdd(e: React.MouseEvent) {
     e.preventDefault();
-    const variant = variants.find((v) => v.stock_quantity > 0);
+    const variant = availableVariants[0];
     if (!variant) return;
     const color = colors.find((c) => c.id === variant.color_id);
     addItem({
@@ -112,7 +117,7 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
         </div>
         <div className="mt-3 px-1">
-          <div className="flex items-start justify-between gap-2">
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-2">
             <h3 className="text-sm font-semibold leading-tight">{product.name}</h3>
             {onSale ? (
               <span className="whitespace-nowrap text-right text-sm">
@@ -129,8 +134,8 @@ export function ProductCard({ product }: { product: Product }) {
               </span>
             )}
           </div>
-          <div className="mt-2 flex items-center justify-between">
-            <div className="flex gap-1">
+          {colors.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1">
               {colors.slice(0, 4).map((c) => (
                 <span
                   key={c.id}
@@ -139,11 +144,28 @@ export function ProductCard({ product }: { product: Product }) {
                   style={{ backgroundColor: c.color_code }}
                 />
               ))}
+              {colors.length > 4 && (
+                <span className="ml-0.5 text-[10px] font-medium text-neutral-400">
+                  +{colors.length - 4}
+                </span>
+              )}
             </div>
-            <span className="text-[11px] text-neutral-400">
-              {sizes.slice(0, 4).join(" / ")}
-            </span>
-          </div>
+          )}
+          {sizes.length > 0 && (
+            <ul
+              aria-label={`Бэлэн размер: ${sizes.join(", ")}`}
+              className="mt-2 flex w-full max-w-full flex-wrap items-center gap-1 overflow-visible"
+            >
+              {sizes.map((size) => (
+                <li
+                  key={size}
+                  className="inline-flex min-w-7 max-w-full items-center justify-center break-words rounded-md border border-ink/15 bg-white px-1.5 py-1 text-[10px] font-semibold leading-none text-ink transition-colors group-hover:border-ink/40"
+                >
+                  {size}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </Link>
     </motion.div>
