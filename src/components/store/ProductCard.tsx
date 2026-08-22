@@ -117,7 +117,7 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
         </div>
         <div className="mt-3 px-1">
-          <div className="flex items-start justify-between gap-2">
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-2">
             <h3 className="text-sm font-semibold leading-tight">{product.name}</h3>
             {onSale ? (
               <span className="whitespace-nowrap text-right text-sm">
