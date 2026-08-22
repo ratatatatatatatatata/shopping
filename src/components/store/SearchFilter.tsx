@@ -8,7 +8,6 @@ import type { Category, Brand, Gender } from "@/types";
 import { GENDER_LABELS } from "@/lib/constants";
 import { cn } from "@/utils/format";
 
-const SIZES = ["S", "M", "L", "XL", "40", "41", "42"];
 const COLORS = [
   { name: "Хар", code: "#111111" },
   { name: "Цагаан", code: "#FFFFFF" },
@@ -29,9 +28,11 @@ const SORTS = [
 export function SearchFilter({
   categories,
   brands = [],
+  sizes,
 }: {
   categories: Category[];
   brands?: Brand[];
+  sizes: string[];
 }) {
   const router = useRouter();
   const params = useSearchParams();
@@ -134,7 +135,7 @@ export function SearchFilter({
       <div>
         <h4 className="label">Размер</h4>
         <div className="flex flex-wrap gap-2">
-          {SIZES.map((s) => (
+          {sizes.map((s) => (
             <button
               key={s}
               onClick={() => setParam("size", s)}

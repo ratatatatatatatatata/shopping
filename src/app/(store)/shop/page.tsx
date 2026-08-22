@@ -8,6 +8,11 @@ import { ProductGrid } from "@/components/store/ProductGrid";
 import { SearchFilter } from "@/components/store/SearchFilter";
 import { GridSkeleton } from "@/components/store/LoadingSkeleton";
 import { cn } from "@/utils/format";
+import {
+  isAvailableSizeVariant,
+  normalizeSizeKey,
+  uniqueSortedAvailableSizes,
+} from "@/utils/sizes";
 
 export const metadata = { title: "Дэлгүүр" };
 export const dynamic = "force-dynamic";
@@ -96,7 +101,9 @@ async function ShopContent({ params }: { params: ShopParams }) {
   if (params.size) {
     products = products.filter((p) =>
       p.product_variants?.some(
-        (v) => v.size === params.size && v.stock_quantity > 0
+        (v) =>
+          isAvailableSizeVariant(v) &&
+          normalizeSizeKey(v.size) === normalizeSizeKey(params.size ?? "")
       )
     );
   }
@@ -107,7 +114,7 @@ async function ShopContent({ params }: { params: ShopParams }) {
   }
   if (params.instock) {
     products = products.filter((p) =>
-      p.product_variants?.some((v) => v.stock_quantity > 0)
+      p.product_variants?.some(isAvailableSizeVariant)
     );
   }
   if (params.sale) {
@@ -184,18 +191,27 @@ export default async function ShopPage({
 }) {
   const params = await searchParams;
   const supabase = await createClient();
-  const [{ data: categories }, { data: brands }] = await Promise.all([
-    supabase
-      .from("categories")
-      .select("*")
-      .eq("is_visible", true)
-      .order("sort_order"),
-    supabase
-      .from("brands")
-      .select("*")
-      .eq("is_visible", true)
-      .order("name"),
-  ]);
+  const [{ data: categories }, { data: brands }, { data: sizeVariants }] =
+    await Promise.all([
+      supabase
+        .from("categories")
+        .select("*")
+        .eq("is_visible", true)
+        .order("sort_order"),
+      supabase
+        .from("brands")
+        .select("*")
+        .eq("is_visible", true)
+        .order("name"),
+      supabase
+        .from("product_variants")
+        .select("size, stock_quantity, status, products!inner(status)")
+        .eq("status", "active")
+        .gt("stock_quantity", 0)
+        .eq("products.status", "published"),
+    ]);
+
+  const sizes = uniqueSortedAvailableSizes(sizeVariants ?? []);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
@@ -207,6 +223,7 @@ export default async function ShopPage({
         <SearchFilter
           categories={(categories ?? []) as Category[]}
           brands={(brands ?? []) as Brand[]}
+          sizes={sizes}
         />
         <div>
           <Suspense fallback={<GridSkeleton />}>

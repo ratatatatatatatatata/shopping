@@ -11,10 +11,12 @@ import { revalidateStorefront } from "@/lib/actions/revalidate";
 import { logAdminAction } from "@/lib/actions/adminLog";
 import { productSchema, type ProductFormValues } from "@/lib/validation";
 import { GENDER_LABELS } from "@/lib/constants";
+import { prepareSizeGuide, resolveSizeGuide } from "@/lib/sizeGuide";
 import { slugify } from "@/utils/format";
 import type { Brand, Category, Gender, Product } from "@/types";
 import { VariantManager, type ColorDraft } from "./VariantManager";
 import { ImageManager, type ImageDraft } from "./ImageManager";
+import { SizeGuideEditor } from "./SizeGuideEditor";
 
 const MAX_MODEL_SIZE = 20 * 1024 * 1024; // 20MB
 
@@ -115,6 +117,13 @@ export function ProductForm({
     }))
   );
 
+  const [sizeGuide, setSizeGuide] = useState(() =>
+    resolveSizeGuide(
+      product?.size_guide,
+      (product?.product_variants ?? []).map((variant) => variant.size)
+    )
+  );
+
   const [images, setImages] = useState<ImageDraft[]>(
     [...(product?.product_images ?? [])]
       .sort((a, b) => a.sort_order - b.sort_order)
@@ -174,6 +183,18 @@ export function ProductForm({
       return;
     }
 
+    for (const color of validColors) {
+      const normalizedSizes = color.sizes
+        .map((size) => size.size.trim().toLocaleLowerCase())
+        .filter(Boolean);
+      if (new Set(normalizedSizes).size !== normalizedSizes.length) {
+        setError(
+          `${color.color_name.trim()} өнгөн дээр давхардсан размер байна. Размер бүрийг нэг удаа оруулна уу.`
+        );
+        return;
+      }
+    }
+
     setLoading(true);
     try {
       // 1. Uploads
@@ -209,6 +230,7 @@ export function ProductForm({
         description: values.description || null,
         material: values.material || null,
         care_instructions: values.care_instructions || null,
+        size_guide: prepareSizeGuide(sizeGuide),
         base_price: values.base_price,
         sale_price: values.sale_price ? values.sale_price : null,
         cost_price: values.cost_price ? values.cost_price : null,
@@ -308,7 +330,7 @@ export function ProductForm({
           const base = {
             product_id: productId,
             color_id: colorId,
-            size: s.size,
+            size: s.size.trim(),
             sku: s.sku || null,
             price: s.price ? Number(s.price) : values.base_price,
             sale_price: s.sale_price ? Number(s.sale_price) : null,
@@ -643,6 +665,18 @@ export function ProductForm({
           </p>
           <VariantManager colors={colors} onChange={setColors} />
         </div>
+
+        <SizeGuideEditor
+          guide={sizeGuide}
+          availableSizes={Array.from(
+            new Set(
+              colors.flatMap((color) =>
+                color.sizes.map((size) => size.size.trim()).filter(Boolean)
+              )
+            )
+          )}
+          onChange={setSizeGuide}
+        />
 
         {/* d) SEO */}
         <div className="card p-6">

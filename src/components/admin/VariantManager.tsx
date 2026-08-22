@@ -143,6 +143,10 @@ export function VariantManager({
 
                 {/* Sizes */}
                 <div className="space-y-2">
+                  <p className="text-[11px] leading-relaxed text-neutral-500">
+                    Размерыг өөрөө бичнэ. Жишээ: XS, XXL, 2XL, 32 эсвэл One
+                    size.
+                  </p>
                   <div className="hidden flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-wide text-neutral-400 sm:flex">
                     <span className="w-20 text-center">Размер</span>
                     <span className="w-24">Үлдэгдэл</span>
@@ -152,57 +156,80 @@ export function VariantManager({
                     <span>Идэвхтэй</span>
                   </div>
                   {color.sizes.map((s, si) => (
-                    <div key={si} className="flex flex-wrap items-center gap-2">
-                      <input
-                        className="input !w-20 !py-1.5 text-center"
-                        value={s.size}
-                        onChange={(e) =>
-                          updateSize(ci, si, { size: e.target.value })
-                        }
-                        placeholder="M"
-                      />
-                      <input
-                        type="number"
-                        min={0}
-                        className="input !w-24 !py-1.5"
-                        value={s.stock_quantity}
-                        onChange={(e) =>
-                          updateSize(ci, si, {
-                            stock_quantity: Number(e.target.value),
-                          })
-                        }
-                        placeholder="Үлдэгдэл"
-                      />
-                      <input
-                        className="input !w-28 !py-1.5"
-                        value={s.sku}
-                        onChange={(e) =>
-                          updateSize(ci, si, { sku: e.target.value })
-                        }
-                        placeholder="SKU"
-                      />
-                      <input
-                        type="number"
-                        min={0}
-                        className="input !w-28 !py-1.5"
-                        value={s.price}
-                        onChange={(e) =>
-                          updateSize(ci, si, { price: e.target.value })
-                        }
-                        placeholder="Үнэ (₮)"
-                      />
-                      <input
-                        type="number"
-                        min={0}
-                        className="input !w-28 !py-1.5"
-                        value={s.sale_price}
-                        onChange={(e) =>
-                          updateSize(ci, si, { sale_price: e.target.value })
-                        }
-                        placeholder="Хямдрал (₮)"
-                      />
+                    <div
+                      key={s.id ?? `new-${si}`}
+                      className="flex flex-wrap items-end gap-2 rounded-xl bg-smoke/60 p-2 sm:bg-transparent sm:p-0"
+                    >
+                      <label className="w-32 sm:w-20">
+                        <span className="label sm:hidden">Размер</span>
+                        <input
+                          className="input !w-full !py-1.5 text-center"
+                          value={s.size}
+                          onChange={(e) =>
+                            updateSize(ci, si, { size: e.target.value })
+                          }
+                          placeholder="XS / 2XL / 32"
+                          aria-label={`${color.color_name || `Өнгө ${ci + 1}`} — размер`}
+                        />
+                      </label>
+                      <label className="w-28 sm:w-24">
+                        <span className="label sm:hidden">Үлдэгдэл</span>
+                        <input
+                          type="number"
+                          min={0}
+                          className="input !w-full !py-1.5"
+                          value={s.stock_quantity}
+                          onChange={(e) =>
+                            updateSize(ci, si, {
+                              stock_quantity: Number(e.target.value),
+                            })
+                          }
+                          placeholder="Үлдэгдэл"
+                          aria-label={`${s.size || "Шинэ размер"} — үлдэгдэл`}
+                        />
+                      </label>
+                      <label className="w-32 sm:w-28">
+                        <span className="label sm:hidden">SKU</span>
+                        <input
+                          className="input !w-full !py-1.5"
+                          value={s.sku}
+                          onChange={(e) =>
+                            updateSize(ci, si, { sku: e.target.value })
+                          }
+                          placeholder="SKU"
+                          aria-label={`${s.size || "Шинэ размер"} — SKU`}
+                        />
+                      </label>
+                      <label className="w-32 sm:w-28">
+                        <span className="label sm:hidden">Үнэ</span>
+                        <input
+                          type="number"
+                          min={0}
+                          className="input !w-full !py-1.5"
+                          value={s.price}
+                          onChange={(e) =>
+                            updateSize(ci, si, { price: e.target.value })
+                          }
+                          placeholder="Үнэ (₮)"
+                          aria-label={`${s.size || "Шинэ размер"} — үнэ`}
+                        />
+                      </label>
+                      <label className="w-32 sm:w-28">
+                        <span className="label sm:hidden">Хямдрал</span>
+                        <input
+                          type="number"
+                          min={0}
+                          className="input !w-full !py-1.5"
+                          value={s.sale_price}
+                          onChange={(e) =>
+                            updateSize(ci, si, { sale_price: e.target.value })
+                          }
+                          placeholder="Хямдрал (₮)"
+                          aria-label={`${s.size || "Шинэ размер"} — хямдралтай үнэ`}
+                        />
+                      </label>
                       <label
-                        className="flex cursor-pointer items-center gap-1.5"
+                        className="flex cursor-pointer items-center gap-1.5 pb-2 sm:pb-0"
                         title="Идэвхтэй эсэх"
                       >
                         <input
@@ -223,7 +250,8 @@ export function VariantManager({
                             sizes: color.sizes.filter((_, j) => j !== si),
                           })
                         }
-                        className="rounded-full p-1.5 text-neutral-400 hover:bg-red-50 hover:text-red-500"
+                        className="mb-1 rounded-full p-1.5 text-neutral-400 hover:bg-red-50 hover:text-red-500 sm:mb-0"
+                        aria-label={`${s.size || "Шинэ размер"} устгах`}
                       >
                         <Trash2 className="h-3.5 w-3.5" />
                       </button>
@@ -238,7 +266,7 @@ export function VariantManager({
                     }
                     className="flex items-center gap-1.5 text-xs font-semibold text-electric hover:underline"
                   >
-                    <Plus className="h-3.5 w-3.5" /> Размер нэмэх
+                    <Plus className="h-3.5 w-3.5" /> Шинэ размер бичих
                   </button>
                 </div>
               </div>

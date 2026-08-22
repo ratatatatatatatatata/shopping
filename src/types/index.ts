@@ -60,6 +60,7 @@ export interface Product {
   description: string | null;
   material: string | null;
   care_instructions: string | null;
+  size_guide: SizeGuide | null;
   base_price: number;
   sale_price: number | null;
   cost_price: number | null;
@@ -85,6 +86,13 @@ export interface Product {
   product_variants?: ProductVariant[];
   product_images?: ProductImage[];
   reviews?: Review[];
+}
+
+export interface SizeGuide {
+  title: string;
+  description: string;
+  columns: string[];
+  rows: string[][];
 }
 
 export interface ProductColor {
