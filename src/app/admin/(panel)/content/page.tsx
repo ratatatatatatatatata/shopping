@@ -7,9 +7,10 @@ import { uploadImage } from "@/lib/storage";
 import { revalidateStorefront } from "@/lib/actions/revalidate";
 import { logAdminAction } from "@/lib/actions/adminLog";
 import type { HomepageSection } from "@/types";
+import { DropSectionEditor } from "@/components/admin/DropSectionEditor";
 
 const SECTION_LABELS: Record<string, string> = {
-  hero: "Нүүр баннер (Hero)",
+  hero: "Нүүр баннер (Hero) — гарчиг, дэд гарчиг нь өлгүүрийн улаан туузан дээр гүйнэ",
   promo: "Урамшуулал (Promo)",
   brand_story: "Брэндийн түүх (Brand story)",
 };
@@ -316,6 +317,10 @@ export default function AdminContentPage() {
             </button>
           </div>
         ))}
+      </section>
+
+      <section className="space-y-4">
+        <DropSectionEditor />
       </section>
 
       {/* (b) Site settings */}

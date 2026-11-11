@@ -14,6 +14,7 @@ import {
   Settings,
   LogOut,
   Store,
+  Shirt,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/utils/format";
@@ -21,6 +22,7 @@ import { cn } from "@/utils/format";
 export const ADMIN_LINKS = [
   { href: "/admin/dashboard", label: "Хяналтын самбар", icon: LayoutDashboard },
   { href: "/admin/products", label: "Бараа", icon: Package },
+  { href: "/admin/looks", label: "Сет хувцас", icon: Shirt },
   { href: "/admin/categories", label: "Ангилал", icon: FolderTree },
   { href: "/admin/orders", label: "Захиалга", icon: ShoppingCart },
   { href: "/admin/customers", label: "Хэрэглэгчид", icon: Users },

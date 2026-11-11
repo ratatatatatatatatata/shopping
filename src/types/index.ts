@@ -73,6 +73,9 @@ export interface Product {
   is_featured: boolean;
   is_new_arrival: boolean;
   is_best_seller: boolean;
+  show_on_rail?: boolean;
+  rail_image_url?: string | null;
+  rail_sort?: number;
   sort_order: number;
   seo_title: string | null;
   seo_description: string | null;
@@ -86,6 +89,31 @@ export interface Product {
   product_variants?: ProductVariant[];
   product_images?: ProductImage[];
   reviews?: Review[];
+}
+
+export interface Look {
+  id: string;
+  name: string;
+  description: string | null;
+  model_image_url: string;
+  coupon_code: string | null;
+  discount_pct: number;
+  sort_order: number;
+  is_visible: boolean;
+  created_at: string;
+  updated_at?: string;
+  look_items?: LookItem[];
+}
+
+export interface LookItem {
+  id: string;
+  look_id: string;
+  product_id: string;
+  pin_x: number;
+  pin_y: number;
+  is_new: boolean;
+  sort_order: number;
+  products?: Product | null;
 }
 
 export interface SizeGuide {

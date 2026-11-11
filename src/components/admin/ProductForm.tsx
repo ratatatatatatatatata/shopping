@@ -93,6 +93,18 @@ export function ProductForm({
     url: string;
   }>({ url: product?.main_image_url ?? "" });
 
+  const [rail, setRail] = useState<{
+    show: boolean;
+    sort: number;
+    url: string;
+    file?: File;
+    previewUrl?: string;
+  }>({
+    show: product?.show_on_rail ?? false,
+    sort: product?.rail_sort ?? 0,
+    url: product?.rail_image_url ?? "",
+  });
+
   const [modelUrl, setModelUrl] = useState(product?.model_url ?? "");
   const [modelFile, setModelFile] = useState<File | null>(null);
 
@@ -416,7 +428,28 @@ export function ProductForm({
         }
       }
 
-      // 7. Revalidate + log
+      // 7. Garment rail (separate update so a missing migration never
+      //    blocks the main product save)
+      let railUrl = rail.url;
+      if (rail.file) railUrl = await uploadImage(rail.file, "product-images");
+      const { error: railErr } = await supabase
+        .from("products")
+        .update({
+          show_on_rail: rail.show,
+          rail_sort: Number(rail.sort) || 0,
+          rail_image_url: railUrl || null,
+        })
+        .eq("id", productId);
+      if (railErr) {
+        console.warn("Rail settings not saved:", railErr.message);
+        if (rail.show || rail.file)
+          alert(
+            "Бараа хадгалагдлаа, гэхдээ өлгүүрийн тохиргоо хадгалагдсангүй. " +
+              "Supabase дээр 202611110001_rail_looks_drop.sql migration-ийг ажиллуулна уу."
+          );
+      }
+
+      // 8. Revalidate + log
       await revalidateStorefront(slug);
       await logAdminAction(
         product ? "product.update" : "product.create",
@@ -757,6 +790,96 @@ export function ProductForm({
               урьдчилсан харагдацаас шалгаарай.
             </p>
           </div>
+        </div>
+
+        {/* e) Garment rail (homepage hero) */}
+        <div className="card space-y-4 p-6">
+          <div>
+            <h2 className="font-display text-lg font-bold">
+              Нүүр хуудасны өлгүүр
+            </h2>
+            <p className="mt-1 text-xs text-neutral-500">
+              Нүүр хуудасны дээд хэсэгт хувцас өлгүүр дээр 3D-ээр эргэлдэж
+              харагдана. Арын фонгүй (PNG/WebP), өлгүүр дээр өлгөгдсөн, дээд
+              талдаа дэгээтэй зураг хамгийн гоё харагдана. Зураг оруулаагүй бол
+              үндсэн зураг ашиглагдана.
+            </p>
+          </div>
+          <label className="flex cursor-pointer items-center justify-between">
+            <span className="text-sm font-medium">Өлгүүрт харуулах</span>
+            <input
+              type="checkbox"
+              checked={rail.show}
+              onChange={(e) => setRail({ ...rail, show: e.target.checked })}
+              className="h-5 w-5 accent-ink"
+            />
+          </label>
+          <label
+            className="group relative flex aspect-[289/300] cursor-pointer items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-white/10"
+            style={{
+              background:
+                "radial-gradient(70% 55% at 50% 40%, #18181a 0%, #0b0b0c 100%)",
+            }}
+          >
+            {rail.previewUrl || rail.url || mainImage.previewUrl || mainImage.url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={rail.previewUrl || rail.url || mainImage.previewUrl || mainImage.url}
+                alt=""
+                className="h-full w-full object-contain object-top drop-shadow-[0_18px_18px_rgba(0,0,0,.5)] transition-transform duration-700 [transform:perspective(900px)_rotateY(-74deg)] [transform-origin:50%_4%] group-hover:[transform:perspective(900px)_rotateY(0deg)]"
+              />
+            ) : (
+              <div className="text-center text-white/40">
+                <Upload className="mx-auto h-7 w-7" />
+                <p className="mt-2 text-xs">Өлгүүрийн зураг</p>
+              </div>
+            )}
+            <span className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-white/10 px-3 py-1 text-[10px] font-semibold text-white/70 opacity-0 transition-opacity group-hover:opacity-100">
+              {rail.url || rail.previewUrl ? "Зураг солих" : "Зураг сонгох"}
+            </span>
+            <input
+              type="file"
+              accept="image/png,image/webp,image/*"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file)
+                  setRail({
+                    ...rail,
+                    file,
+                    previewUrl: URL.createObjectURL(file),
+                  });
+              }}
+            />
+          </label>
+          <div className="flex items-end gap-3">
+            <div className="flex-1">
+              <label className="label">Өлгүүр дээрх дараалал</label>
+              <input
+                type="number"
+                className="input !py-2"
+                value={rail.sort}
+                onChange={(e) =>
+                  setRail({ ...rail, sort: Number(e.target.value) })
+                }
+              />
+            </div>
+            {(rail.url || rail.previewUrl) && (
+              <button
+                type="button"
+                onClick={() =>
+                  setRail({ ...rail, url: "", file: undefined, previewUrl: undefined })
+                }
+                className="btn-outline !py-2 text-xs"
+              >
+                Зураг арилгах
+              </button>
+            )}
+          </div>
+          <p className="text-[11px] text-neutral-400">
+            Хамгийн ихдээ 10 бараа өлгүүрт гарна. Зурган дээр хулганаа
+            аваачвал эргэх хөдөлгөөнийг урьдчилж харна.
+          </p>
         </div>
 
         {/* e) 3D model */}

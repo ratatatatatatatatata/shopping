@@ -26,6 +26,7 @@ import { cn } from "@/utils/format";
 const LINKS = [
   { href: "/", label: "Нүүр" },
   { href: "/shop", label: "Дэлгүүр" },
+  { href: "/sets", label: "Сет хувцас" },
   { href: "/new-arrivals", label: "Шинэ загварууд" },
   { href: "/sale", label: "Хямдрал" },
   { href: "/contact", label: "Холбоо барих" },

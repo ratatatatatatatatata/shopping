@@ -112,6 +112,9 @@ create table public.products (
   is_featured boolean not null default false,
   is_new_arrival boolean not null default false,
   is_best_seller boolean not null default false,
+  show_on_rail boolean not null default false, -- homepage garment rail
+  rail_image_url text,                          -- transparent hanger cut-out
+  rail_sort integer not null default 0,
   sort_order integer not null default 0,
   seo_title text,
   seo_description text,
@@ -361,6 +364,34 @@ create table public.homepage_sections (
 );
 create trigger trg_sections_updated before update on public.homepage_sections
   for each row execute function public.set_updated_at();
+
+-- ---------- looks ("Сет хувцас") ----------
+create table public.looks (
+  id uuid primary key default uuid_generate_v4(),
+  name text not null,
+  description text,
+  model_image_url text not null,
+  coupon_code text,
+  discount_pct numeric(5,2) not null default 0 check (discount_pct >= 0 and discount_pct <= 90),
+  sort_order integer not null default 0,
+  is_visible boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create trigger trg_looks_updated before update on public.looks
+  for each row execute function public.set_updated_at();
+
+create table public.look_items (
+  id uuid primary key default uuid_generate_v4(),
+  look_id uuid not null references public.looks(id) on delete cascade,
+  product_id uuid not null references public.products(id) on delete cascade,
+  pin_x numeric(5,2) not null default 50 check (pin_x between 0 and 100),
+  pin_y numeric(5,2) not null default 50 check (pin_y between 0 and 100),
+  is_new boolean not null default false,
+  sort_order integer not null default 0,
+  created_at timestamptz not null default now()
+);
+create index idx_look_items_look on public.look_items(look_id);
 
 create table public.site_settings (
   key text primary key,

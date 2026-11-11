@@ -24,6 +24,8 @@ alter table public.order_items enable row level security;
 alter table public.payments enable row level security;
 alter table public.reviews enable row level security;
 alter table public.homepage_sections enable row level security;
+alter table public.looks enable row level security;
+alter table public.look_items enable row level security;
 alter table public.site_settings enable row level security;
 alter table public.inventory_transactions enable row level security;
 alter table public.admin_activity_logs enable row level security;
@@ -155,6 +157,18 @@ create policy "admin manages reviews" on public.reviews
 create policy "public reads visible sections" on public.homepage_sections
   for select using (is_visible = true or public.is_admin());
 create policy "admin manages sections" on public.homepage_sections
+  for all using (public.is_admin()) with check (public.is_admin());
+
+create policy "public reads visible looks" on public.looks
+  for select using (is_visible = true or public.is_admin());
+create policy "admin manages looks" on public.looks
+  for all using (public.is_admin()) with check (public.is_admin());
+create policy "public reads items of visible looks" on public.look_items
+  for select using (
+    public.is_admin() or
+    exists (select 1 from public.looks l where l.id = look_id and l.is_visible = true)
+  );
+create policy "admin manages look items" on public.look_items
   for all using (public.is_admin()) with check (public.is_admin());
 
 create policy "public reads settings" on public.site_settings

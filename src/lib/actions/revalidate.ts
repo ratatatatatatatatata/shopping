@@ -26,6 +26,7 @@ export async function revalidateStorefront(productSlug?: string) {
   revalidatePath("/shop");
   revalidatePath("/new-arrivals");
   revalidatePath("/sale");
+  revalidatePath("/sets");
   if (productSlug) revalidatePath(`/product/${productSlug}`);
   return { ok: true };
 }

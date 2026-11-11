@@ -1,0 +1,242 @@
+/* ============================================================
+   Balloon-drop section ("olla" recreation, adapted to clothing)
+   ============================================================ */
+.bd {
+  --bd-page: #e9e7df;
+  --bd-ink: #16193a;
+  --bd-navy: #141a4a;
+  --bd-card: #f7d23a;
+  --bd-gap: 1.19vw;
+  --bd-w: 87vw;
+  --bd-ease: cubic-bezier(.2, .8, .2, 1);
+  position: relative;
+  background: var(--bd-page);
+  color: var(--bd-ink);
+  font-family: var(--font-jost), "Futura", "Century Gothic", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding: 9.3vh 0;
+  overflow-x: clip;
+}
+.bd *, .bd *::before, .bd *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.bd a { color: inherit; text-decoration: none; }
+
+.bd-hero {
+  position: relative;
+  width: var(--bd-w);
+  margin: 0 auto;
+  height: 89.3vh;
+  display: flex;
+  gap: var(--bd-gap);
+}
+
+/* sky panel */
+.bd-sky {
+  position: relative;
+  flex: 0 0 71.1%;
+  height: 89.3vh;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0d1650 center / cover no-repeat;
+}
+.bd-tag {
+  position: absolute;
+  left: 6.45%;
+  top: 8.8%;
+  color: #fff;
+  font-size: clamp(20px, 2.05vw, 36px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -.01em;
+  z-index: 3;
+  white-space: pre-line;
+}
+.bd-word {
+  position: absolute;
+  left: 6.1%;
+  bottom: 5.4%;
+  color: #fff;
+  font-size: min(27vh, 12.5vw);
+  font-weight: 500;
+  line-height: .74;
+  letter-spacing: -.035em;
+  z-index: 3;
+  white-space: nowrap;
+}
+.bd-balloons {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30%;
+  aspect-ratio: 1360 / 2048;
+  background: center / contain no-repeat;
+  transform-origin: 49.4% 94.6%;
+  z-index: 2;
+  will-change: transform;
+  pointer-events: none;
+}
+.bd-garment {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  pointer-events: none;
+  will-change: transform;
+  background: 50% 0 / contain no-repeat;
+}
+
+/* product card */
+.bd-card {
+  position: relative;
+  flex: 1;
+  height: 89.3vh;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--bd-card);
+  color: var(--bd-navy);
+  padding: 2.2vh 1.4vw;
+}
+.bd-new {
+  display: inline-grid;
+  place-items: center;
+  height: 3vh;
+  min-height: 22px;
+  padding: 0 1.25vw;
+  border-radius: 30px;
+  background: #fff;
+  font-size: clamp(9px, .66vw, 12px);
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.bd-card p {
+  position: relative;
+  z-index: 1;
+  margin-top: 2.1vh;
+  font-size: clamp(12px, .92vw, 16px);
+  line-height: 1.55;
+  font-weight: 500;
+  white-space: pre-line;
+}
+.bd-card-media {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 118%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  pointer-events: none;
+  -webkit-mask: radial-gradient(closest-side, #000 72%, transparent 99%);
+  mask: radial-gradient(closest-side, #000 72%, transparent 99%);
+}
+.bd-shop {
+  position: absolute;
+  left: 1.4vw;
+  right: 1.4vw;
+  bottom: 2.4vh;
+  height: 4.3vh;
+  min-height: 32px;
+  border-radius: 40px;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  font-size: clamp(11px, .84vw, 15px);
+  font-weight: 600;
+  transition: background .3s, color .3s;
+  z-index: 1;
+}
+.bd-shop:hover { background: var(--bd-navy); color: #fff; }
+
+/* landing scene */
+.bd-scene {
+  position: relative;
+  width: var(--bd-w);
+  height: 89.3vh;
+  margin: var(--bd-gap) auto 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #efe9de center / cover no-repeat;
+}
+/* CSS boutique used until an admin uploads a scene photo */
+.bd-set { position: absolute; inset: 0; pointer-events: none; }
+.bd-set .wall {
+  position: absolute; inset: 0 0 22% 0;
+  background:
+    radial-gradient(60% 70% at 50% 18%, rgba(255, 249, 238, .95), rgba(255, 249, 238, 0) 70%),
+    linear-gradient(180deg, #ece4d6, #e2d8c6);
+}
+.bd-set .floor {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 22%;
+  background: linear-gradient(180deg, #cdbfa8, #bfae94);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5);
+}
+.bd-set .arch {
+  position: absolute; bottom: 22%; width: 13%; height: 52%;
+  border-radius: 999px 999px 0 0; background: linear-gradient(180deg, #f6f1e8, #e9dfcd);
+  box-shadow: inset 0 0 0 1px rgba(110, 90, 60, .12);
+}
+.bd-set .arch.l { left: 9%; }
+.bd-set .arch.r { right: 9%; }
+.bd-set .rack {
+  position: absolute; bottom: 22%; height: 46%; width: 15%;
+  border-top: 3px solid #8d7a5f;
+}
+.bd-set .rack::before, .bd-set .rack::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 3px; background: #8d7a5f;
+}
+.bd-set .rack::before { left: 0; }
+.bd-set .rack::after { right: 0; }
+.bd-set .rack.l { left: 25%; }
+.bd-set .rack.r { right: 25%; }
+.bd-set .rack i {
+  position: absolute; top: 2px; width: 16%; height: 58%; border-radius: 4px 4px 2px 2px;
+  background: var(--c, #d8cbb5);
+}
+.bd-set .plinth {
+  position: absolute; left: 50%; bottom: 14%; width: 22%; height: 22%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #f8f4ec 0 9%, #eee6d8 9% 100%);
+  border-radius: 6px 6px 2px 2px;
+  box-shadow: 0 30px 40px -24px rgba(60, 40, 20, .45);
+}
+
+.bd-ktext {
+  position: absolute;
+  left: 50%;
+  top: 13%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #1b1b1b;
+  z-index: 4;
+  white-space: nowrap;
+}
+.bd-ktext h2 {
+  font-size: var(--kh, 22px);
+  font-weight: 600;
+  letter-spacing: -.01em;
+  line-height: 1.2;
+}
+.bd-ktext p {
+  margin-top: .45em;
+  font-size: var(--kp, 15px);
+  line-height: 1.38;
+  font-weight: 450;
+  white-space: pre-line;
+}
+.bd-ktext h2, .bd-ktext p {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .7s var(--bd-ease), transform .7s var(--bd-ease);
+}
+.bd-ktext p { transition-delay: .12s; }
+.bd.landed .bd-ktext h2, .bd.landed .bd-ktext p { opacity: 1; transform: none; }
+
+@media (max-width: 760px) {
+  .bd { --bd-w: calc(100vw - 32px); --bd-gap: 12px; padding: 40px 0; }
+  .bd-hero { flex-direction: column; height: auto; }
+  .bd-sky { flex: none; height: 72vh; }
+  .bd-word { font-size: 19vw; }
+  .bd-card { flex: none; height: 78vh; padding: 18px; }
+  .bd-shop { left: 18px; right: 18px; }
+  .bd-scene { height: 70vh; }
+  .bd-ktext { white-space: normal; width: 86%; }
+}
